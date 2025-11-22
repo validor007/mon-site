@@ -1,112 +1,1470 @@
-<!doctype html><html lang="fr"><head><meta charset="utf-8" /><meta name="viewport" content="width=device-width,initial-scale=1" /><title>Nexus Groups — Banque Digitale</title><link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet"><link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-<style>  /* --- THÈME PRO & MODERNE --- */  :root{    --bg-dark: #f9fafb; /* Fond général GRIS TRÈS CLAIR */    --bg-card: #ffffff; /* Fond des cartes BLANC PUR */    --accent-blue: #0077B6; /* Bleu Principal fort */    --accent-light: #48CAE4; /* Bleu Clair pour les accents */    --text-main: #1f2937; /* Texte principal NOIR */    --text-muted: #6b7280; /* Texte secondaire gris foncé */    --success: #10b981;     --danger: #ef4444;     --card-radius: 12px;    --border-color: #e5e7eb; /* Bordures claires */    --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);    --bg-alt: #f1f5f9; /* Fond pour les sections alternées */  }    *{box-sizing:border-box}
-  /* --- CORRECTION CRITIQUE POUR BLOGGER --- */  body, html, .content, .post-body, .entry-content, .main-inner, .date-outer, .blog-posts {      background-color: var(--bg-dark) !important;      color: var(--text-main) !important;      margin: 0;      padding: 0;      font-family: 'Inter', sans-serif;      line-height: 1.6;      min-height: 100vh;  }  .navbar, .blog-pager, .post-footer, .comments, .sidebar { display: none !important; }    /* Liens */  a{color:var(--accent-blue);text-decoration:none;transition:0.3s}  a:hover{color:var(--accent-light)}    /* HEADER & NAV */  header{    background:rgba(255, 255, 255, 0.95) !important;     padding:16px 0;    border-bottom:1px solid var(--border-color);    position:sticky;    top:0;    z-index:1000;    backdrop-filter:blur(5px);    box-shadow: var(--shadow-light);  }  .container{max-width:1200px;margin:0 auto;padding:0 24px}  .nav{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px}  .logo{font-weight:800;font-size:1.3rem;letter-spacing:-0.5px;color:var(--text-main);display:flex;align-items:center;gap:8px; cursor:pointer;}  .logo i {color:var(--accent-blue); font-size: 1.5rem;}  .nav-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap;}    /* BOUTONS */  .btn{padding:10px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:0.9rem;transition:all 0.2s;white-space:nowrap;font-family:'Inter',sans-serif}  .btn-ghost{background:transparent;color:var(--text-muted);}  .btn-ghost:hover{color:var(--text-main);background:rgba(0,0,0,0.05)}  .btn-primary{background:var(--accent-blue);color:white;box-shadow:0 4px 10px rgba(0, 119, 182, 0.3)}  .btn-primary:hover{background:#005c8a;transform:translateY(-1px)}  .btn-outline{border:1px solid var(--accent-blue);background:transparent;color:var(--accent-blue)}  .btn:disabled { opacity: 0.6; cursor: not-allowed; }    /* STRUCTURE GENERALE */  .main-content {padding:40px 0; min-height:80vh}  .section-title {text-align:center; margin-bottom:40px}  .section-title h2 {font-size:2.2rem; margin:0; color:var(--text-main) !important}  .section-title p {color:var(--text-muted); margin-top:10px}    /* NOUVELLES SECTIONS HOME */  .home-section { padding: 60px 0; }  .bg-alternate { background: var(--bg-alt); padding: 60px 0; margin: 40px -24px; } /* Pour déborder sur toute la largeur */
-  /* CARTES (CARDS) */  .card{      background-color: var(--bg-card) !important;       color: var(--text-main) !important;      padding:24px;      border-radius:var(--card-radius);      border:1px solid var(--border-color);       margin-bottom: 20px;      box-shadow: var(--shadow-light);  }    .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}  .grid-3{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px}    @media(max-width:768px){    .grid-2{grid-template-columns:1fr}    .grid-3{grid-template-columns:1fr}    .bg-alternate { margin: 40px 0; padding: 40px 24px; } /* Ajustement mobile */  }
-  /* HERO SECTION */  .hero {text-align:center; padding:60px 0}  .hero h1 {      color: var(--text-main) !important;      font-size: 3rem;  }    /* INPUTS & FORMS */  input, select, textarea {      border:1px solid #d1d5db; background:var(--bg-card) !important;       color:var(--text-main) !important;       padding: 10px;      border-radius: 6px;      width: 100%;  }  input:focus, select:focus, textarea:focus {border-color:var(--accent-blue); background:var(--bg-card) !important; box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.2)}
-  /* Accordion (FAQ) */  .accordion-item {      background-color: var(--bg-card);      border: 1px solid var(--border-color);      border-radius: 8px;      margin-bottom: 10px;      overflow: hidden;  }  .accordion-header {      padding: 15px;      cursor: pointer;      display: flex;      justify-content: space-between;      align-items: center;      font-weight: 600;  }  .accordion-content {      padding: 0 15px 0 15px;      max-height: 0;      overflow: hidden;      transition: max-height 0.3s ease-out;      border-top: 1px solid var(--border-color);  }  .accordion-content p { padding: 15px 0; margin: 0; color: var(--text-muted); }  .accordion-header i { transition: transform 0.3s; }  .accordion-item.active .accordion-header i { transform: rotate(180deg); }  .accordion-item.active .accordion-content { max-height: 500px; } /* Hauteur généreuse */
-  /* Testimonials */  .testimonial-card {      padding: 25px;      font-style: italic;      border-left: 5px solid var(--accent-blue);      box-shadow: var(--shadow-lg);  }  .testimonial-card footer {      font-style: normal;      font-weight: 600;      margin-top: 15px;      color: var(--accent-blue);      font-size: 0.9rem;  }
-  /* Sélecteur de Langue */  #lang-selector {    padding: 8px 10px;    border-radius: 6px;    border: 1px solid var(--border-color);    background: var(--bg-card);    font-size: 0.9rem;    color: var(--text-main);  }
-  /* --- NOUVEAUX STYLES DIAPORAMA AGENTS --- */  .slideshow-container {    max-width: 100%;    position: relative;    margin: 40px auto;    overflow: hidden;    padding: 20px 0;  }  .slide {    display: none; /* Par défaut masqué */    text-align: center;  }  .slide img {    width: 150px;    height: 150px;    border-radius: 50%;    object-fit: cover;    margin-bottom: 10px;    border: 4px solid var(--accent-blue);    box-shadow: var(--shadow-lg);  }  .slide-caption {    font-weight: 600;    font-size: 1.1rem;    color: var(--text-main);  }  .slide-role {    color: var(--accent-blue);    font-size: 0.9rem;    margin-bottom: 20px;  }
-  /* Boutons Précédent/Suivant */  .prev, .next {    cursor: pointer;    position: absolute;    top: 50%;    width: auto;    padding: 16px;    margin-top: -22px;    color: var(--accent-blue);    font-weight: bold;    font-size: 18px;    transition: 0.6s ease;    border-radius: 0 3px 3px 0;    user-select: none;    background: rgba(255, 255, 255, 0.7);    border-radius: 50%;    height: 40px;    width: 40px;    display: flex;    align-items: center;    justify-content: center;    box-shadow: var(--shadow-light);  }  .next { right: 0; border-radius: 3px 0 0 3px; }  .prev:hover, .next:hover { background: var(--accent-blue); color: white; }  .slideshow-dots { text-align: center; margin-top: 10px; }  .dot {    cursor: pointer;    height: 10px;    width: 10px;    margin: 0 4px;    background-color: #bbb;    border-radius: 50%;    display: inline-block;    transition: background-color 0.6s ease;  }  .active-dot, .dot:hover { background-color: var(--accent-blue); }
-  /* DASHBOARD/ADMIN (Styles inchangés) */  .dashboard-header {       padding-bottom: 25px;       margin-bottom: 25px;      display: flex;      align-items: center;      justify-content: space-between;      flex-wrap: wrap;      gap: 15px;  }  .user-info { display: flex; align-items: center; gap: 15px; }  .balance-card {    background: linear-gradient(135deg, #0077B6 0%, #0096C7 100%);     color: white;    padding: 30px;    border-radius: var(--card-radius);    box-shadow: 0 10px 20px rgba(0, 119, 182, 0.4);  }  .quick-actions {      display: grid;      grid-template-columns: repeat(4, 1fr);      gap: 15px;      margin-top: 20px;      margin-bottom: 20px;      padding: 15px 0;      border-bottom: 1px solid var(--border-color);  }  .action-btn {    display: flex;    flex-direction: column;    align-items: center;    padding: 15px 10px;    background: var(--bg-card);    border: 1px solid var(--border-color);    border-radius: var(--card-radius);    transition: background 0.2s;    cursor: pointer;    box-shadow: var(--shadow-light);  }
-  /* FOOTER */  footer{      background:var(--bg-card) !important;      color:var(--text-muted);      border-top:1px solid var(--border-color);  }</style></head>
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<title>Nexus Groups — Banque Digitale</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
+
+<style>
+  /* --- THÈME PRO & MODERNE --- */
+  :root{
+    --bg-dark: #f9fafb; /* Fond général GRIS TRÈS CLAIR */
+    --bg-card: #ffffff; /* Fond des cartes BLANC PUR */
+    --accent-blue: #0077B6; /* Bleu Principal fort */
+    --accent-light: #48CAE4; /* Bleu Clair pour les accents */
+    --text-main: #1f2937; /* Texte principal NOIR */
+    --text-muted: #6b7280; /* Texte secondaire gris foncé */
+    --success: #10b981; 
+    --danger: #ef4444; 
+    --card-radius: 12px;
+    --border-color: #e5e7eb; /* Bordures claires */
+    --shadow-light: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -2px rgba(0, 0, 0, 0.05);
+    --shadow-lg: 0 10px 15px -3px rgba(0, 0, 0, 0.1), 0 4px 6px -4px rgba(0, 0, 0, 0.1);
+    --bg-alt: #f1f5f9; /* Fond pour les sections alternées */
+  }
+  
+  *{box-sizing:border-box}
+
+  /* --- CORRECTION CRITIQUE POUR BLOGGER --- */
+  body, html, .content, .post-body, .entry-content, .main-inner, .date-outer, .blog-posts {
+      background-color: var(--bg-dark) !important;
+      color: var(--text-main) !important;
+      margin: 0;
+      padding: 0;
+      font-family: 'Inter', sans-serif;
+      line-height: 1.6;
+      min-height: 100vh;
+  }
+  .navbar, .blog-pager, .post-footer, .comments, .sidebar { display: none !important; }
+  
+  /* Liens */
+  a{color:var(--accent-blue);text-decoration:none;transition:0.3s}
+  a:hover{color:var(--accent-light)}
+  
+  /* HEADER & NAV */
+  header{
+    background:rgba(255, 255, 255, 0.95) !important; 
+    padding:16px 0;
+    border-bottom:1px solid var(--border-color);
+    position:sticky;
+    top:0;
+    z-index:1000;
+    backdrop-filter:blur(5px);
+    box-shadow: var(--shadow-light);
+  }
+  .container{max-width:1200px;margin:0 auto;padding:0 24px}
+  .nav{display:flex;align-items:center;justify-content:space-between;flex-wrap:wrap;gap:15px}
+  .logo{font-weight:800;font-size:1.3rem;letter-spacing:-0.5px;color:var(--text-main);display:flex;align-items:center;gap:8px; cursor:pointer;}
+  .logo i {color:var(--accent-blue); font-size: 1.5rem;}
+  .nav-actions { display:flex; gap:8px; align-items:center; flex-wrap:wrap;}
+  
+  /* BOUTONS */
+  .btn{padding:10px 16px;border-radius:8px;border:none;cursor:pointer;font-weight:600;font-size:0.9rem;transition:all 0.2s;white-space:nowrap;font-family:'Inter',sans-serif}
+  .btn-ghost{background:transparent;color:var(--text-muted);}
+  .btn-ghost:hover{color:var(--text-main);background:rgba(0,0,0,0.05)}
+  .btn-primary{background:var(--accent-blue);color:white;box-shadow:0 4px 10px rgba(0, 119, 182, 0.3)}
+  .btn-primary:hover{background:#005c8a;transform:translateY(-1px)}
+  .btn-outline{border:1px solid var(--accent-blue);background:transparent;color:var(--accent-blue)}
+  .btn:disabled { opacity: 0.6; cursor: not-allowed; }
+  
+  /* STRUCTURE GENERALE */
+  .main-content {padding:40px 0; min-height:80vh}
+  .section-title {text-align:center; margin-bottom:40px}
+  .section-title h2 {font-size:2.2rem; margin:0; color:var(--text-main) !important}
+  .section-title p {color:var(--text-muted); margin-top:10px}
+  
+  /* NOUVELLES SECTIONS HOME */
+  .home-section { padding: 60px 0; }
+  .bg-alternate { background: var(--bg-alt); padding: 60px 0; margin: 40px -24px; } /* Pour déborder sur toute la largeur */
+
+  /* CARTES (CARDS) */
+  .card{
+      background-color: var(--bg-card) !important; 
+      color: var(--text-main) !important;
+      padding:24px;
+      border-radius:var(--card-radius);
+      border:1px solid var(--border-color); 
+      margin-bottom: 20px;
+      box-shadow: var(--shadow-light);
+  }
+  
+  .grid-2{display:grid;grid-template-columns:1fr 1fr;gap:24px}
+  .grid-3{display:grid;grid-template-columns:repeat(auto-fit, minmax(300px, 1fr));gap:24px}
+  
+  @media(max-width:768px){
+    .grid-2{grid-template-columns:1fr}
+    .grid-3{grid-template-columns:1fr}
+    .bg-alternate { margin: 40px 0; padding: 40px 24px; } /* Ajustement mobile */
+  }
+
+  /* HERO SECTION */
+  .hero {text-align:center; padding:60px 0}
+  .hero h1 {
+      color: var(--text-main) !important;
+      font-size: 3rem;
+  }
+  
+  /* INPUTS & FORMS */
+  input, select, textarea {
+      border:1px solid #d1d5db; background:var(--bg-card) !important; 
+      color:var(--text-main) !important; 
+      padding: 10px;
+      border-radius: 6px;
+      width: 100%;
+  }
+  input:focus, select:focus, textarea:focus {border-color:var(--accent-blue); background:var(--bg-card) !important; box-shadow: 0 0 0 2px rgba(0, 119, 182, 0.2)}
+
+  /* Accordion (FAQ) */
+  .accordion-item {
+      background-color: var(--bg-card);
+      border: 1px solid var(--border-color);
+      border-radius: 8px;
+      margin-bottom: 10px;
+      overflow: hidden;
+  }
+  .accordion-header {
+      padding: 15px;
+      cursor: pointer;
+      display: flex;
+      justify-content: space-between;
+      align-items: center;
+      font-weight: 600;
+  }
+  .accordion-content {
+      padding: 0 15px 0 15px;
+      max-height: 0;
+      overflow: hidden;
+      transition: max-height 0.3s ease-out;
+      border-top: 1px solid var(--border-color);
+  }
+  .accordion-content p { padding: 15px 0; margin: 0; color: var(--text-muted); }
+  .accordion-header i { transition: transform 0.3s; }
+  .accordion-item.active .accordion-header i { transform: rotate(180deg); }
+  .accordion-item.active .accordion-content { max-height: 500px; } /* Hauteur généreuse */
+
+  /* Testimonials */
+  .testimonial-card {
+      padding: 25px;
+      font-style: italic;
+      border-left: 5px solid var(--accent-blue);
+      box-shadow: var(--shadow-lg);
+  }
+  .testimonial-card footer {
+      font-style: normal;
+      font-weight: 600;
+      margin-top: 15px;
+      color: var(--accent-blue);
+      font-size: 0.9rem;
+  }
+
+  /* Sélecteur de Langue */
+  #lang-selector {
+    padding: 8px 10px;
+    border-radius: 6px;
+    border: 1px solid var(--border-color);
+    background: var(--bg-card);
+    font-size: 0.9rem;
+    color: var(--text-main);
+  }
+
+  /* --- NOUVEAUX STYLES DIAPORAMA AGENTS --- */
+  .slideshow-container {
+    max-width: 100%;
+    position: relative;
+    margin: 40px auto;
+    overflow: hidden;
+    padding: 20px 0;
+  }
+  .slide {
+    display: none; /* Par défaut masqué */
+    text-align: center;
+  }
+  .slide img {
+    width: 150px;
+    height: 150px;
+    border-radius: 50%;
+    object-fit: cover;
+    margin-bottom: 10px;
+    border: 4px solid var(--accent-blue);
+    box-shadow: var(--shadow-lg);
+  }
+  .slide-caption {
+    font-weight: 600;
+    font-size: 1.1rem;
+    color: var(--text-main);
+  }
+  .slide-role {
+    color: var(--accent-blue);
+    font-size: 0.9rem;
+    margin-bottom: 20px;
+  }
+
+  /* Boutons Précédent/Suivant */
+  .prev, .next {
+    cursor: pointer;
+    position: absolute;
+    top: 50%;
+    width: auto;
+    padding: 16px;
+    margin-top: -22px;
+    color: var(--accent-blue);
+    font-weight: bold;
+    font-size: 18px;
+    transition: 0.6s ease;
+    border-radius: 0 3px 3px 0;
+    user-select: none;
+    background: rgba(255, 255, 255, 0.7);
+    border-radius: 50%;
+    height: 40px;
+    width: 40px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    box-shadow: var(--shadow-light);
+  }
+  .next { right: 0; border-radius: 3px 0 0 3px; }
+  .prev:hover, .next:hover { background: var(--accent-blue); color: white; }
+  .slideshow-dots { text-align: center; margin-top: 10px; }
+  .dot {
+    cursor: pointer;
+    height: 10px;
+    width: 10px;
+    margin: 0 4px;
+    background-color: #bbb;
+    border-radius: 50%;
+    display: inline-block;
+    transition: background-color 0.6s ease;
+  }
+  .active-dot, .dot:hover { background-color: var(--accent-blue); }
+
+  /* DASHBOARD/ADMIN (Styles inchangés) */
+  .dashboard-header { 
+      padding-bottom: 25px; 
+      margin-bottom: 25px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      flex-wrap: wrap;
+      gap: 15px;
+  }
+  .user-info { display: flex; align-items: center; gap: 15px; }
+  .balance-card {
+    background: linear-gradient(135deg, #0077B6 0%, #0096C7 100%); 
+    color: white;
+    padding: 30px;
+    border-radius: var(--card-radius);
+    box-shadow: 0 10px 20px rgba(0, 119, 182, 0.4);
+  }
+  .quick-actions {
+      display: grid;
+      grid-template-columns: repeat(4, 1fr);
+      gap: 15px;
+      margin-top: 20px;
+      margin-bottom: 20px;
+      padding: 15px 0;
+      border-bottom: 1px solid var(--border-color);
+  }
+  .action-btn {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding: 15px 10px;
+    background: var(--bg-card);
+    border: 1px solid var(--border-color);
+    border-radius: var(--card-radius);
+    transition: background 0.2s;
+    cursor: pointer;
+    box-shadow: var(--shadow-light);
+  }
+
+  /* FOOTER */
+  footer{
+      background:var(--bg-card) !important;
+      color:var(--text-muted);
+      border-top:1px solid var(--border-color);
+  }
+</style>
+</head>
+
 <body>
-<header>  <div class="container nav">    <div class="logo" onclick="navigate('home')">      <i class="fa-solid fa-layer-group"></i> NEXUS GROUPS    </div>        <div class="nav-actions">      <select id="lang-selector" onchange="setLanguage(this.value)">        <option value="fr"> Français</option>        <option value="en"> English</option>        </select>
-      <button class="btn btn-ghost" onclick="navigate('home')" data-key="nav_home">Accueil</button>      <a href="#section-services" class="btn btn-ghost" data-key="nav_services">Services</a>      <a href="#section-contact" class="btn btn-ghost" data-key="nav_contact">Contact</a>      <div style="width:1px; height:20px; background:#d1d5db; margin:0 10px;"></div>      <button class="btn btn-primary" onclick="navigate('login')" data-key="nav_login_btn">Espace Client</button>    </div>  </div></header>
+
+<header>
+  <div class="container nav">
+    <div class="logo" onclick="navigate('home')">
+      <i class="fa-solid fa-layer-group"></i> NEXUS GROUPS
+    </div>
+    
+    <div class="nav-actions">
+      <select id="lang-selector" onchange="setLanguage(this.value)">
+        <option value="fr"> Français</option>
+        <option value="en"> English</option>
+        </select>
+
+      <button class="btn btn-ghost" onclick="navigate('home')" data-key="nav_home">Accueil</button>
+      <a href="#section-services" class="btn btn-ghost" data-key="nav_services">Services</a>
+      <a href="#section-contact" class="btn btn-ghost" data-key="nav_contact">Contact</a>
+      <div style="width:1px; height:20px; background:#d1d5db; margin:0 10px;"></div>
+      <button class="btn btn-primary" onclick="navigate('login')" data-key="nav_login_btn">Espace Client</button>
+    </div>
+  </div>
+</header>
+
 <main class="container main-content">
-  <section id="home">    <div class="hero">      <div data-key="hero_tag" style="display:inline-block; padding:8px 16px; background:rgba(0, 119, 182, 0.1); color:var(--accent-blue); border-radius:30px; font-size:0.9rem; margin-bottom:20px; font-weight:600; border:1px solid rgba(0, 119, 182, 0.3)">        <i class="fa-solid fa-bolt"></i> Finance Digitale, Sécurité Maximale      </div>      <h1 data-key="hero_title">Votre Plateforme Bancaire de Nouvelle Génération.</h1>      <p data-key="hero_subtitle">Gérez votre épargne, vos investissements et vos transferts avec une interface intuitive et des frais réduits.</p>      <div style="margin-top:40px">        <button class="btn btn-primary" style="padding:15px 30px; font-size:1rem" onclick="navigate('signup')" data-key="hero_btn_open">Ouvrir un compte gratuit</button>        <a href="#section-about" class="btn btn-ghost" style="padding:15px 30px; font-size:1rem; color:var(--text-main)" data-key="hero_btn_more">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>      </div>    </div>        <div id="agent-slideshow" class="slideshow-container bg-alternate">        <div class="container" style="text-align:center;">            <div class="section-title" style="margin-bottom:20px;">                <h2 data-key="agent_title" style="font-size:1.8rem;"> Notre Équipe de Spécialistes</h2>                <p data-key="agent_subtitle">Nous mettons l'humain au cœur de la finance digitale.</p>            </div>                        <div id="slides-wrapper" style="position:relative; max-width: 600px; margin: 0 auto;">                <div class="slide">                    <img src="https://picsum.photos/id/64/300/300" alt="Agent 1 - Priscille Dubois">                    <div class="slide-caption" data-key="agent1_name">Priscille Dubois</div>                    <div class="slide-role" data-key="agent1_role">Chef de l'équipe Support Client</div>                </div>
-                <div class="slide">                    <img src="https://picsum.photos/id/177/300/300" alt="Agent 2 - Marc Leroi">                    <div class="slide-caption" data-key="agent2_name">Marc Leroi</div>                    <div class="slide-role" data-key="agent2_role">Spécialiste en Investissements et Épargne</div>                </div>                                <div class="slide">                    <img src="https://picsum.photos/id/433/300/300" alt="Agent 3 - Samira Diallo">                    <div class="slide-caption" data-key="agent3_name">Samira Diallo</div>                    <div class="slide-role" data-key="agent3_role">Responsable des Opérations Internationales</div>                </div>                                <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>                <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>            </div>
-            <div class="slideshow-dots" id="dots-container">                </div>        </div>    </div>        <div id="section-about" class="home-section" style="padding-top:60px;">        <div class="section-title">            <h2 data-key="about_title"> Notre Mission</h2>            <p data-key="about_subtitle">Rendre la finance accessible, transparente et sécurisée pour tous.</p>        </div>        <div class="grid-2" style="align-items:center;">            <div>                <h3 data-key="about_who" style="color:var(--accent-blue)">Qui sommes-nous ?</h3>                <p data-key="about_p1">Nexus Groups a été fondée en 2020 avec la vision de briser les barrières de la banque traditionnelle. Nous combinons l'agilité d'une Fintech et la fiabilité d'une institution financière réglementée.</p>                <p data-key="about_p2">Notre engagement est simple : vous offrir les meilleurs outils pour optimiser votre patrimoine, sans frais cachés. Plus de 50 000 clients nous font déjà confiance à travers l'Europe et l'Afrique.</p>                <a href="#section-services" class="btn btn-outline" style="margin-top:15px" data-key="about_btn">Découvrez nos produits</a>            </div>            <div>                <img src="https://picsum.photos/600/400?random=1" alt="Image d'équipe moderne" style="width:100%; border-radius:var(--card-radius); box-shadow:var(--shadow-lg);">            </div>        </div>    </div>
 
-    <div id="section-services" class="home-section bg-alternate" style="padding-top:80px; padding-bottom:80px;">        <div class="container">            <div class="section-title">                <h2 data-key="services_title"> Nos Services Clés</h2>                <p data-key="services_subtitle">Tout ce dont vous avez besoin pour gérer votre argent en un seul endroit.</p>            </div>                        <div class="grid-3">              <div class="card service-card" style="border-left:4px solid var(--accent-blue);">                <i class="fa-solid fa-money-bill-transfer" style="font-size:2rem; color:var(--accent-blue); margin-bottom:10px;"></i>                <h3 data-key="service1_title">Comptes & Virements</h3>                <p data-key="service1_p" style="color:var(--text-muted)">Ouverture de compte instantanée, IBAN personnel et virements SEPA/SWIFT rapides.</p>              </div>              <div class="card service-card" style="border-left:4px solid var(--success);">                <i class="fa-solid fa-chart-line" style="font-size:2rem; color:var(--success); margin-bottom:10px;"></i>                <h3 data-key="service2_title">Épargne & Investissement</h3>                <p data-key="service2_p" style="color:var(--text-muted)">Produits d'épargne flexibles et accès simple aux actions, ETFs et obligations.</p>              </div>              <div class="card service-card" style="border-left:4px solid var(--danger);">                <i class="fa-solid fa-credit-card" style="font-size:2rem; color:var(--danger); margin-bottom:10px;"></i>                <h3 data-key="service3_title">Cartes Virtuelles & Physiques</h3>                <p data-key="service3_p" style="color:var(--text-muted)">Maîtrisez vos dépenses avec des cartes gérées 100% depuis l'application mobile.</p>              </div>            </div>        </div>    </div>
-    <div id="section-credits" class="home-section" style="padding-top:40px;">        <div class="section-title">            <h2 data-key="loans_title"> Types de Prêts Disponibles</h2>            <p data-key="loans_subtitle">Trouvez la solution de financement adaptée à votre projet, avec des taux compétitifs.</p>        </div>                <div class="grid-3">            <div class="card" style="border-top: 5px solid #0077B6;">                <h4 data-key="loan1_name" style="color:#0077B6"><i class="fa-solid fa-house"></i> Prêt Immobilier</h4>                <p data-key="loan1_p" class="small" style="color:var(--text-muted)">Financement pour l'achat de votre résidence principale ou secondaire, avec des durées longues (jusqu'à 25 ans).</p>                <p data-key="loan1_rate" style="font-weight:600">Taux dès 2.5%*</p>            </div>                        <div class="card" style="border-top: 5px solid #10b981;">                <h4 data-key="loan2_name" style="color:#10b981"><i class="fa-solid fa-car"></i> Crédit Consommation</h4>                <p data-key="loan2_p" class="small" style="color:var(--text-muted)">Pour l'achat d'une voiture, des travaux, ou un voyage. Montants de 1 000€ à 75 000€.</p>                <p data-key="loan2_duration" style="font-weight:600">Durée : 1 à 7 ans</p>            </div>                        <div class="card" style="border-top: 5px solid #48CAE4;">                <h4 data-key="loan3_name" style="color:#48CAE4"><i class="fa-solid fa-user-graduate"></i> Prêt Étudiant</h4>                <p data-key="loan3_p" class="small" style="color:var(--text-muted)">Financer vos études. Remboursement différé après l'obtention du diplôme.</p>                <p data-key="loan3_rate" style="font-weight:600">Taux fixes avantageux</p>            </div>        </div>        <p data-key="loans_footer" class="small" style="text-align:center; margin-top:30px; color:var(--text-muted)">*Soumis à conditions et étude de dossier. Un crédit vous engage et doit être remboursé.</p>                <div style="text-align:center; margin-top:20px;">            <a href="#" onclick="navigate('login')" class="btn btn-primary" data-key="loans_btn">Faire une demande de prêt</a>        </div>    </div>
+  <section id="home">
+    <div class="hero">
+      <div data-key="hero_tag" style="display:inline-block; padding:8px 16px; background:rgba(0, 119, 182, 0.1); color:var(--accent-blue); border-radius:30px; font-size:0.9rem; margin-bottom:20px; font-weight:600; border:1px solid rgba(0, 119, 182, 0.3)">
+        <i class="fa-solid fa-bolt"></i> Finance Digitale, Sécurité Maximale
+      </div>
+      <h1 data-key="hero_title">Votre Plateforme Bancaire de Nouvelle Génération.</h1>
+      <p data-key="hero_subtitle">Gérez votre épargne, vos investissements et vos transferts avec une interface intuitive et des frais réduits.</p>
+      <div style="margin-top:40px">
+        <button class="btn btn-primary" style="padding:15px 30px; font-size:1rem" onclick="navigate('signup')" data-key="hero_btn_open">Ouvrir un compte gratuit</button>
+        <a href="#section-about" class="btn btn-ghost" style="padding:15px 30px; font-size:1rem; color:var(--text-main)" data-key="hero_btn_more">En savoir plus <i class="fa-solid fa-arrow-right"></i></a>
+      </div>
+    </div>
+    
+    <div id="agent-slideshow" class="slideshow-container bg-alternate">
+        <div class="container" style="text-align:center;">
+            <div class="section-title" style="margin-bottom:20px;">
+                <h2 data-key="agent_title" style="font-size:1.8rem;"> Notre Équipe de Spécialistes</h2>
+                <p data-key="agent_subtitle">Nous mettons l'humain au cœur de la finance digitale.</p>
+            </div>
+            
+            <div id="slides-wrapper" style="position:relative; max-width: 600px; margin: 0 auto;">
+                <div class="slide">
+                    <img src="https://picsum.photos/id/64/300/300" alt="Agent 1 - Priscille Dubois">
+                    <div class="slide-caption" data-key="agent1_name">Priscille Dubois</div>
+                    <div class="slide-role" data-key="agent1_role">Chef de l'équipe Support Client</div>
+                </div>
 
-    <div id="section-testimonials" class="home-section bg-alternate" style="padding-top:80px; padding-bottom:80px;">        <div class="container">            <div class="section-title">                <h2 data-key="testi_title"> Ce que disent nos Clients</h2>                <p data-key="testi_subtitle">Leur succès est notre priorité.</p>            </div>                        <div class="grid-2">                <div class="card testimonial-card">                    <p data-key="testi1_text">"J'ai pu obtenir un prêt auto en 72 heures, un processus d'une simplicité incroyable. L'application est intuitive et le support client très réactif."</p>                    <footer data-key="testi1_author">— Sophie L., Paris</footer>                </div>                 <div class="card testimonial-card">                    <p data-key="testi2_text">"Après avoir testé plusieurs banques en ligne, Nexus Groups est la seule à offrir une sécurité aussi robuste et des frais de virement internationaux si bas. C'est parfait pour mon business."</p>                    <footer data-key="testi2_author">— Marc K., Montréal</footer>                </div>            </div>        </div>    </div>
-    <div id="section-faq" class="home-section" style="padding-top:40px;">        <div class="section-title">            <h2 data-key="faq_title"> Questions Fréquentes</h2>            <p data-key="faq_subtitle">Trouvez rapidement les réponses à vos interrogations.</p>        </div>                <div class="accordion-container" style="max-width:800px; margin:0 auto;">            <div class="accordion-item active">                <div class="accordion-header" onclick="toggleAccordion(this)">                    <span data-key="faq1_q">Mon argent est-il sécurisé chez Nexus Groups ?</span>                    <i class="fa-solid fa-chevron-down"></i>                </div>                <div class="accordion-content">                    <p data-key="faq1_a">Oui, absolument. Nous utilisons le stockage de données sécurisé Backendless et toutes les transactions sont chiffrées. De plus, les fonds de nos clients sont ségrégués dans une institution bancaire de premier plan, assurant une protection totale.</p>                </div>            </div>            <div class="accordion-item">                <div class="accordion-header" onclick="toggleAccordion(this)">                    <span data-key="faq2_q">Comment puis-je ouvrir un compte ?</span>                    <i class="fa-solid fa-chevron-down"></i>                </div>                <div class="accordion-content">                    <p data-key="faq2_a">L'ouverture de compte est 100% en ligne. Cliquez sur "Ouvrir un compte gratuit" en haut de la page, remplissez le formulaire et validez votre identité avec une pièce d'identité valide. Le processus prend moins de 5 minutes.</p>                </div>            </div>            <div class="accordion-item">                <div class="accordion-header" onclick="toggleAccordion(this)">                    <span data-key="faq3_q">Quels sont les frais de virement international ?</span>                    <i class="fa-solid fa-chevron-down"></i>                </div>                <div class="accordion-content">                    <p data-key="faq3_a">Nous appliquons un taux de change interbancaire réel (sans majoration) avec une commission fixe de 0.5% du montant transféré, bien inférieure aux banques traditionnelles.</p>                </div>            </div>        </div>    </div>
-    <div id="section-contact" class="home-section bg-alternate" style="padding-top:80px; padding-bottom:80px;">        <div class="container">            <div class="section-title">                <h2 data-key="contact_title"> Contactez-nous</h2>                <p data-key="contact_subtitle">Notre équipe est là pour vous 24h/24, 7j/7.</p>            </div>                        <div class="grid-2" style="max-width:800px; margin:0 auto; align-items:center;">                <div>                    <h4 data-key="contact_direct_title" style="color:var(--accent-blue)">Nous joindre directement :</h4>                    <p>                        <i class="fa-solid fa-envelope" style="color:var(--accent-blue);"></i> **<span data-key="contact_email">Email Support</span> :** <a href="mailto:support@nexusgroups.com">support@nexusgroups.com</a><br>                        <i class="fa-solid fa-phone" style="color:var(--accent-blue);"></i> **<span data-key="contact_phone">Téléphone</span> :** +33 1 80 80 80 80 (Du Lundi au Vendredi)<br>                        <i class="fa-solid fa-location-dot" style="color:var(--accent-blue);"></i> **<span data-key="contact_address">Siège Social</span> :** 12 rue de la Finance, 75008 Paris, France                    </p>                </div>                <div class="card">                    <h4 data-key="contact_form_title" style="margin-top:0;">Envoyez-nous un message</h4>                    <input type="text" data-key="contact_form_name_ph" placeholder="Votre nom" style="margin-bottom:10px;">                    <input type="email" data-key="contact_form_email_ph" placeholder="Votre email" style="margin-bottom:10px;">                    <textarea data-key="contact_form_msg_ph" placeholder="Votre message ou question..." rows="4" style="margin-bottom:15px;"></textarea>                    <button class="btn btn-primary" style="width:100%;" data-key="contact_form_btn">Envoyer le message</button>                </div>            </div>        </div>    </div>
+                <div class="slide">
+                    <img src="https://picsum.photos/id/177/300/300" alt="Agent 2 - Marc Leroi">
+                    <div class="slide-caption" data-key="agent2_name">Marc Leroi</div>
+                    <div class="slide-role" data-key="agent2_role">Spécialiste en Investissements et Épargne</div>
+                </div>
+                
+                <div class="slide">
+                    <img src="https://picsum.photos/id/433/300/300" alt="Agent 3 - Samira Diallo">
+                    <div class="slide-caption" data-key="agent3_name">Samira Diallo</div>
+                    <div class="slide-role" data-key="agent3_role">Responsable des Opérations Internationales</div>
+                </div>
+                
+                <a class="prev" onclick="plusSlides(-1)"><i class="fa-solid fa-chevron-left"></i></a>
+                <a class="next" onclick="plusSlides(1)"><i class="fa-solid fa-chevron-right"></i></a>
+            </div>
+
+            <div class="slideshow-dots" id="dots-container">
+                </div>
+        </div>
+    </div>
+    
+    <div id="section-about" class="home-section" style="padding-top:60px;">
+        <div class="section-title">
+            <h2 data-key="about_title"> Notre Mission</h2>
+            <p data-key="about_subtitle">Rendre la finance accessible, transparente et sécurisée pour tous.</p>
+        </div>
+        <div class="grid-2" style="align-items:center;">
+            <div>
+                <h3 data-key="about_who" style="color:var(--accent-blue)">Qui sommes-nous ?</h3>
+                <p data-key="about_p1">Nexus Groups a été fondée en 2020 avec la vision de briser les barrières de la banque traditionnelle. Nous combinons l'agilité d'une Fintech et la fiabilité d'une institution financière réglementée.</p>
+                <p data-key="about_p2">Notre engagement est simple : vous offrir les meilleurs outils pour optimiser votre patrimoine, sans frais cachés. Plus de 50 000 clients nous font déjà confiance à travers l'Europe et l'Afrique.</p>
+                <a href="#section-services" class="btn btn-outline" style="margin-top:15px" data-key="about_btn">Découvrez nos produits</a>
+            </div>
+            <div>
+                <img src="https://picsum.photos/600/400?random=1" alt="Image d'équipe moderne" style="width:100%; border-radius:var(--card-radius); box-shadow:var(--shadow-lg);">
+            </div>
+        </div>
+    </div>
+
+
+    <div id="section-services" class="home-section bg-alternate" style="padding-top:80px; padding-bottom:80px;">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-key="services_title"> Nos Services Clés</h2>
+                <p data-key="services_subtitle">Tout ce dont vous avez besoin pour gérer votre argent en un seul endroit.</p>
+            </div>
+            
+            <div class="grid-3">
+              <div class="card service-card" style="border-left:4px solid var(--accent-blue);">
+                <i class="fa-solid fa-money-bill-transfer" style="font-size:2rem; color:var(--accent-blue); margin-bottom:10px;"></i>
+                <h3 data-key="service1_title">Comptes & Virements</h3>
+                <p data-key="service1_p" style="color:var(--text-muted)">Ouverture de compte instantanée, IBAN personnel et virements SEPA/SWIFT rapides.</p>
+              </div>
+              <div class="card service-card" style="border-left:4px solid var(--success);">
+                <i class="fa-solid fa-chart-line" style="font-size:2rem; color:var(--success); margin-bottom:10px;"></i>
+                <h3 data-key="service2_title">Épargne & Investissement</h3>
+                <p data-key="service2_p" style="color:var(--text-muted)">Produits d'épargne flexibles et accès simple aux actions, ETFs et obligations.</p>
+              </div>
+              <div class="card service-card" style="border-left:4px solid var(--danger);">
+                <i class="fa-solid fa-credit-card" style="font-size:2rem; color:var(--danger); margin-bottom:10px;"></i>
+                <h3 data-key="service3_title">Cartes Virtuelles & Physiques</h3>
+                <p data-key="service3_p" style="color:var(--text-muted)">Maîtrisez vos dépenses avec des cartes gérées 100% depuis l'application mobile.</p>
+              </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-credits" class="home-section" style="padding-top:40px;">
+        <div class="section-title">
+            <h2 data-key="loans_title"> Types de Prêts Disponibles</h2>
+            <p data-key="loans_subtitle">Trouvez la solution de financement adaptée à votre projet, avec des taux compétitifs.</p>
+        </div>
+        
+        <div class="grid-3">
+            <div class="card" style="border-top: 5px solid #0077B6;">
+                <h4 data-key="loan1_name" style="color:#0077B6"><i class="fa-solid fa-house"></i> Prêt Immobilier</h4>
+                <p data-key="loan1_p" class="small" style="color:var(--text-muted)">Financement pour l'achat de votre résidence principale ou secondaire, avec des durées longues (jusqu'à 25 ans).</p>
+                <p data-key="loan1_rate" style="font-weight:600">Taux dès 2.5%*</p>
+            </div>
+            
+            <div class="card" style="border-top: 5px solid #10b981;">
+                <h4 data-key="loan2_name" style="color:#10b981"><i class="fa-solid fa-car"></i> Crédit Consommation</h4>
+                <p data-key="loan2_p" class="small" style="color:var(--text-muted)">Pour l'achat d'une voiture, des travaux, ou un voyage. Montants de 1 000€ à 75 000€.</p>
+                <p data-key="loan2_duration" style="font-weight:600">Durée : 1 à 7 ans</p>
+            </div>
+            
+            <div class="card" style="border-top: 5px solid #48CAE4;">
+                <h4 data-key="loan3_name" style="color:#48CAE4"><i class="fa-solid fa-user-graduate"></i> Prêt Étudiant</h4>
+                <p data-key="loan3_p" class="small" style="color:var(--text-muted)">Financer vos études. Remboursement différé après l'obtention du diplôme.</p>
+                <p data-key="loan3_rate" style="font-weight:600">Taux fixes avantageux</p>
+            </div>
+        </div>
+        <p data-key="loans_footer" class="small" style="text-align:center; margin-top:30px; color:var(--text-muted)">*Soumis à conditions et étude de dossier. Un crédit vous engage et doit être remboursé.</p>
+        
+        <div style="text-align:center; margin-top:20px;">
+            <a href="#" onclick="navigate('login')" class="btn btn-primary" data-key="loans_btn">Faire une demande de prêt</a>
+        </div>
+    </div>
+
+
+    <div id="section-testimonials" class="home-section bg-alternate" style="padding-top:80px; padding-bottom:80px;">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-key="testi_title"> Ce que disent nos Clients</h2>
+                <p data-key="testi_subtitle">Leur succès est notre priorité.</p>
+            </div>
+            
+            <div class="grid-2">
+                <div class="card testimonial-card">
+                    <p data-key="testi1_text">"J'ai pu obtenir un prêt auto en 72 heures, un processus d'une simplicité incroyable. L'application est intuitive et le support client très réactif."</p>
+                    <footer data-key="testi1_author">— Sophie L., Paris</footer>
+                </div>
+                 <div class="card testimonial-card">
+                    <p data-key="testi2_text">"Après avoir testé plusieurs banques en ligne, Nexus Groups est la seule à offrir une sécurité aussi robuste et des frais de virement internationaux si bas. C'est parfait pour mon business."</p>
+                    <footer data-key="testi2_author">— Marc K., Montréal</footer>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-faq" class="home-section" style="padding-top:40px;">
+        <div class="section-title">
+            <h2 data-key="faq_title"> Questions Fréquentes</h2>
+            <p data-key="faq_subtitle">Trouvez rapidement les réponses à vos interrogations.</p>
+        </div>
+        
+        <div class="accordion-container" style="max-width:800px; margin:0 auto;">
+            <div class="accordion-item active">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span data-key="faq1_q">Mon argent est-il sécurisé chez Nexus Groups ?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p data-key="faq1_a">Oui, absolument. Nous utilisons le stockage de données sécurisé Backendless et toutes les transactions sont chiffrées. De plus, les fonds de nos clients sont ségrégués dans une institution bancaire de premier plan, assurant une protection totale.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span data-key="faq2_q">Comment puis-je ouvrir un compte ?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p data-key="faq2_a">L'ouverture de compte est 100% en ligne. Cliquez sur "Ouvrir un compte gratuit" en haut de la page, remplissez le formulaire et validez votre identité avec une pièce d'identité valide. Le processus prend moins de 5 minutes.</p>
+                </div>
+            </div>
+            <div class="accordion-item">
+                <div class="accordion-header" onclick="toggleAccordion(this)">
+                    <span data-key="faq3_q">Quels sont les frais de virement international ?</span>
+                    <i class="fa-solid fa-chevron-down"></i>
+                </div>
+                <div class="accordion-content">
+                    <p data-key="faq3_a">Nous appliquons un taux de change interbancaire réel (sans majoration) avec une commission fixe de 0.5% du montant transféré, bien inférieure aux banques traditionnelles.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="section-contact" class="home-section bg-alternate" style="padding-top:80px; padding-bottom:80px;">
+        <div class="container">
+            <div class="section-title">
+                <h2 data-key="contact_title"> Contactez-nous</h2>
+                <p data-key="contact_subtitle">Notre équipe est là pour vous 24h/24, 7j/7.</p>
+            </div>
+            
+            <div class="grid-2" style="max-width:800px; margin:0 auto; align-items:center;">
+                <div>
+                    <h4 data-key="contact_direct_title" style="color:var(--accent-blue)">Nous joindre directement :</h4>
+                    <p>
+                        <i class="fa-solid fa-envelope" style="color:var(--accent-blue);"></i> **<span data-key="contact_email">Email Support</span> :** <a href="mailto:support@nexusgroups.com">support@nexusgroups.com</a><br>
+                        <i class="fa-solid fa-phone" style="color:var(--accent-blue);"></i> **<span data-key="contact_phone">Téléphone</span> :** +33 1 80 80 80 80 (Du Lundi au Vendredi)<br>
+                        <i class="fa-solid fa-location-dot" style="color:var(--accent-blue);"></i> **<span data-key="contact_address">Siège Social</span> :** 12 rue de la Finance, 75008 Paris, France
+                    </p>
+                </div>
+                <div class="card">
+                    <h4 data-key="contact_form_title" style="margin-top:0;">Envoyez-nous un message</h4>
+                    <input type="text" data-key="contact_form_name_ph" placeholder="Votre nom" style="margin-bottom:10px;">
+                    <input type="email" data-key="contact_form_email_ph" placeholder="Votre email" style="margin-bottom:10px;">
+                    <textarea data-key="contact_form_msg_ph" placeholder="Votre message ou question..." rows="4" style="margin-bottom:15px;"></textarea>
+                    <button class="btn btn-primary" style="width:100%;" data-key="contact_form_btn">Envoyer le message</button>
+                </div>
+            </div>
+        </div>
+    </div>
+
   </section>
-  <section id="signup" style="display:none">    <div class="signup-container">      <div class="section-title">          <h2 data-key="signup_title">Ouverture de Compte</h2>          <p data-key="signup_subtitle">Rejoignez Nexus Groups en moins de 2 minutes.</p>      </div>      <div class="card" style="padding:30px">        <div data-key="signup_step1" style="margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:10px; color:var(--accent-blue); font-weight:600">            <i class="fa-solid fa-user-shield"></i> Identité & Coordonnées        </div>
-        <div class="grid-2">            <div class="form-group">                <label data-key="signup_first_lbl">Prénom *</label>                <input id="su_first" data-key="signup_first_ph" placeholder="Jean" />            </div>            <div class="form-group">                <label data-key="signup_last_lbl">Nom *</label>                <input id="su_last" data-key="signup_last_ph" placeholder="Dupont" />            </div>        </div>        <div class="grid-2">            <div class="form-group">                <label data-key="signup_dob_lbl">Date de naissance</label>                <input id="su_dob" type="date" style="color-scheme:light"/>            </div>            <div class="form-group">                <label data-key="signup_phone_lbl">Téléphone (Mobile)</label>                <input id="su_phone" type="tel" data-key="signup_phone_ph" placeholder="+33 6 12 34 56 78" />            </div>        </div>
-        <div class="form-group">            <label data-key="signup_address_lbl">Adresse de résidence</label>            <input id="su_address" data-key="signup_address_ph" placeholder="N°, Rue, Ville, Code Postal..." />        </div>
-        <div data-key="signup_step2" style="margin:25px 0 20px 0; border-bottom:1px solid var(--border-color); padding-bottom:10px; color:var(--accent-blue); font-weight:600">            <i class="fa-solid fa-wallet"></i> Configuration du Compte        </div>
-        <div class="grid-2">             <div class="form-group">                <label data-key="signup_country_lbl">Pays de résidence</label>                <select id="su_country">                    <option value="FR">France</option>                    <option value="BE">Belgique</option>                    <option value="CH">Suisse</option>                    <option value="CA">Canada</option>                    <option value="AF">Afrique (Tous pays)</option>                    <option value="US">États-Unis</option>                    <option value="Other">Autre</option>                </select>            </div>            <div class="form-group">                <label data-key="signup_type_lbl">Type de compte</label>                <select id="su_type">                    <option value="Checking" data-key="signup_type_checking">Compte Courant (Standard)</option>                    <option value="Savings" data-key="signup_type_savings">Compte Épargne</option>                    <option value="Business" data-key="signup_type_business">Compte Business / Pro</option>                </select>            </div>        </div>
-        <div class="grid-2">             <div class="form-group">                <label data-key="signup_email_lbl">Email (Identifiant) *</label>                <input id="su_email" type="email" data-key="signup_email_ph" placeholder="nom@email.com"/>            </div>            <div class="form-group">                <label data-key="signup_pass_lbl">Mot de passe *</label>                <input id="su_pass" type="password" data-key="signup_pass_ph" placeholder="8 caractères min."/>            </div>        </div>
-        <div data-key="signup_security_note" style="background:rgba(0, 119, 182, 0.05); padding:15px; border-radius:8px; margin-top:10px; font-size:0.85rem; color:var(--text-main); border:1px solid rgba(0, 119, 182, 0.3);">            <i class="fa-solid fa-lock"></i> Vos données sont chiffrées et sécurisées.        </div>
-        <button class="btn btn-primary" style="width:100%; margin-top:20px; padding:15px; font-size:1rem" onclick="registerUser()" data-key="signup_btn">            Valider mon identité et ouvrir le compte        </button>        <div id="su_msg" class="small" style="margin-top:10px; text-align:center; color:var(--accent-blue)"></div>                <div style="text-align:center; margin-top:20px">             <a class="small" href="#" onclick="navigate('login')" data-key="signup_login_link">Vous avez déjà un compte ? Connectez-vous</a>        </div>      </div>    </div>  </section>
-  <section id="login" style="display:none">    <div class="auth-container">      <div class="section-title"><h2 data-key="login_title">Espace Client</h2></div>      <div class="card">        <div class="form-group"><label data-key="login_email_lbl">Email</label><input id="li_email" type="email"/></div>        <div class="form-group"><label data-key="login_pass_lbl">Mot de passe</label><input id="li_pass" type="password"/></div>        <button class="btn btn-primary" style="width:100%" onclick="loginUser()" data-key="login_btn">Se connecter</button>        <div style="text-align:center; margin-top:15px">          <a class="small" href="#" onclick="navigate('forgot')" data-key="login_forgot_link">Mot de passe oublié ?</a><br>          <a class="small" href="#" onclick="navigate('signup')" data-key="login_signup_link">Créer un compte</a>        </div>        <div id="li_msg" class="small" style="margin-top:10px; color:var(--accent-blue)"></div>      </div>    </div>  </section>
-  <section id="forgot" style="display:none">    <div class="auth-container">      <div class="card">        <h3 data-key="forgot_title">Réinitialisation</h3>        <input id="fp_email" data-key="forgot_email_ph" placeholder="Email" type="email"/>        <button class="btn btn-primary" style="width:100%; margin-top:10px" onclick="sendPasswordReset()" data-key="forgot_btn">Envoyer</button>        <div id="fp_msg" class="small" style="margin-top:10px"></div>      </div>    </div>  </section>
-  <section id="dashboard" style="display:none">    <div class="container">      <div class="dashboard-header">        <div class="user-info">            <img id="avatar" style="width:50px;height:50px;border-radius:50%;object-fit:cover; border: 2px solid var(--accent-blue);" src="" />            <div>              <h2 style="margin:0; font-size:1.5rem;" id="db_name">Client</h2>              <div class="small" style="color:var(--text-muted)" id="db_email"></div>            </div>        </div>        <div style="display: flex; gap: 10px;">            <button class="btn btn-outline" id="btn_admin" style="display:none; color:var(--danger); font-weight:700; border-color:var(--danger);" onclick="navigate('admin')" data-key="db_btn_admin"> Admin</button>            <button class="btn btn-primary" onclick="logout()" data-key="db_btn_logout"><i class="fa-solid fa-power-off"></i> Déconnexion</button>        </div>      </div>
-      <div class="grid-2">        <div class="balance-card">          <div style="display:flex; justify-content:space-between; align-items:center; opacity:0.9">              <i class="fa-solid fa-wallet" style="font-size:1.2rem;"></i>              <div class="small" data-key="db_balance_current" style="color:white !important">Solde Courant</div>          </div>          <div style="font-size:3rem; font-weight:700; margin:15px 0 10px 0; color:white !important">            <span id="db_balance">0.00</span> €          </div>          <div style="opacity:0.8; font-size:0.9rem;">            <span data-key="db_account_type">Type de compte</span> : <span id="db_type">Standard</span>          </div>        </div>                <div class="card" style="display:block; padding: 30px;">             <h3 data-key="db_ops_title" style="margin-top:0;">Détails & Opérations</h3>             <p data-key="db_ops_subtitle" style="color:var(--text-muted); font-size:0.9rem;">Accédez directement aux fonctionnalités de votre compte.</p>             <button class="btn btn-primary" style="width:100%" onclick="showTransferPanel()" data-key="db_ops_transfer">                <i class="fa-solid fa-arrow-right-arrow-left"></i> Transfert Interne             </button>             <button class="btn btn-outline" style="width:100%; margin-top:10px;" onclick="document.getElementById('profile_panel').style.display='block'; document.getElementById('transfer_panel').style.display='none'" data-key="db_ops_profile">                <i class="fa-solid fa-user-circle"></i> Gérer mon Profil             </button>        </div>      </div>
-      <div class="quick-actions">        <div class="action-btn" onclick="showTransferPanel()">          <i class="fa-solid fa-exchange"></i>          <span data-key="db_action_transfer">Transfert</span>        </div>        <div class="action-btn" onclick="alert('Fonctionnalité Dépôt en cours de développement')">          <i class="fa-solid fa-arrow-up-right-from-square"></i>          <span data-key="db_action_deposit">Dépôt</span>        </div>        <div class="action-btn" onclick="loadTransactions(document.getElementById('db_email').textContent)">          <i class="fa-solid fa-clock-rotate-left"></i>          <span data-key="db_action_history">Historique</span>        </div>        <div class="action-btn" onclick="alert('Fonctionnalité Support en cours de développement')">          <i class="fa-solid fa-headset"></i>          <span data-key="db_action_support">Support</span>        </div>      </div>
 
-      <div class="grid-2">        <div id="transfer_panel" class="card" style="display:none; grid-column: 1 / -1;">          <h3 data-key="db_panel_transfer_title" style="margin-top:0;">Transfert Interne (Compte à Compte)</h3>          <input id="transfer_amount" type="number" data-key="db_panel_transfer_ph" placeholder="Montant à virer (€)" style="margin-top:5px; margin-bottom:10px"/>          <select id="transfer_target" style="margin-bottom:10px">            <option value="Courant" data-key="db_panel_transfer_checking">Vers Compte Courant</option>            <option value="Épargne" data-key="db_panel_transfer_savings">Vers Compte Épargne</option>          </select>          <button class="btn btn-primary" style="width:100%" onclick="processInternalTransfer()" data-key="db_panel_transfer_btn">            <i class="fa-solid fa-arrow-right"></i> Effectuer le Transfert          </button>          <div id="transfer_msg" class="small" style="margin-top:10px; color:var(--text-muted)"></div>          <button class="btn btn-ghost" style="width:100%; margin-top:10px;" onclick="hidePanels()" data-key="db_panel_transfer_cancel">Annuler</button>        </div>
-        <div id="profile_panel" class="card" style="display:none; grid-column: 1 / -1;">          <h3 data-key="db_panel_profile_title" style="margin-top:0;">Gérer mon Profil</h3>          <label class="small" data-key="db_panel_profile_lbl">Changer Photo de Profil</label>          <div style="display:flex; gap:10px; margin-top:5px">            <input id="avatar_file" type="file" accept="image/*" style="padding:5px" />            <button class="btn btn-primary" onclick="uploadAvatar()" data-key="db_panel_profile_btn">Sauvegarder</button>          </div>          <button class="btn btn-ghost" style="width:100%; margin-top:20px;" onclick="hidePanels()" data-key="db_panel_profile_back">Retour au Tableau de Bord</button>        </div>      </div>
-      <div class="card" style="margin-top:24px">        <h3 data-key="db_history_title" style="border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-top:0;">Historique des Transactions Récentes</h3>        <div id="tx_list" style="font-size:0.9rem; color:var(--text-main);">Chargement...</div>      </div>    </div>  </section>
-  <section id="admin" class="container" style="display:none; margin-top:20px">    <div class="card admin-panel" style="border:1px solid var(--danger);">      <h2 data-key="admin_title" style="color:var(--danger); margin-bottom:20px"><i class="fa-solid fa-user-lock"></i> Espace Administrateur</h2>            <div class="grid-2">                <div class="card">           <h4 data-key="admin_create_title">Créer un Nouveau Compte</h4>           <div class="grid-2" style="gap:10px; margin-bottom:5px">                <input id="admin_new_first" data-key="admin_first_ph" placeholder="Prénom" />                <input id="admin_new_last" data-key="admin_last_ph" placeholder="Nom" />            </div>            <input id="admin_new_email" type="email" data-key="admin_email_ph" placeholder="Email du nouveau client" style="margin-bottom:10px" />            <label class="small" data-key="admin_balance_lbl" style="display:block; margin-bottom:5px; color:var(--text-muted)">Solde Initial (€)</label>            <input id="admin_new_balance" type="number" data-key="admin_balance_ph" placeholder="Solde Initial (€)" value="100.00" style="margin-bottom:15px" />            <button class="btn btn-primary" style="width:100%" onclick="adminCreateUser()" data-key="admin_create_btn">                <i class="fa-solid fa-plus-circle"></i> Créer Compte Client            </button>            <div id="admin_create_msg" class="small" data-key="admin_create_note" style="margin-top:10px; color:var(--text-muted)">Un mot de passe temporaire sera généré.</div>        </div>
-        <div class="card">          <h4 data-key="admin_adjust_title">Modifier Solde Client</h4>          <input id="admin_target_email" data-key="admin_adjust_email_ph" placeholder="Email du client existant" style="margin-top:5px"/>          <input id="admin_amount" type="number" data-key="admin_adjust_amount_ph" placeholder="Montant (€)" style="margin-top:10px"/>          <select id="admin_type" style="margin-top:10px">            <option value="credit" data-key="admin_adjust_credit">Créditer (+)</option>            <option value="debit" data-key="admin_adjust_debit">Débiter (-)</option>          </select>          <button class="btn btn-primary" style="width:100%; margin-top:15px" onclick="adminAdjust()" data-key="admin_adjust_btn">            <i class="fa-solid fa-screwdriver-wrench"></i> Valider l'Ajustement          </button>          <div id="admin_msg" class="small" style="margin-top:10px"></div>        </div>      </div>            <hr style="border-top: 1px solid var(--border-color); margin: 30px 0;" />      <div class="grid-2" style="margin-top:30px">        <div class="card" style="padding:20px; border:1px solid var(--accent-blue)">            <h3 data-key="admin_risk_title"> Paramètres de Risque / Blocage</h3>            <p data-key="admin_risk_subtitle" class="small" style="color:red; margin-bottom:15px">Contrôlez les tentatives de retrait des clients.</p>                        <div class="form-group">                <label data-key="admin_risk_percent_lbl">Seuil de Blocage (%)</label>                <input id="block_percent" type="number" placeholder="Ex: 50" value="50" min="0" max="100"/>                <p data-key="admin_risk_percent_note" class="small" style="color:var(--text-muted)">Le transfert échoue si le retrait est supérieur à ce pourcentage du solde actuel.</p>            </div>
-            <div class="form-group">                <label data-key="admin_risk_attempts_lbl">Tentatives Max. avant blocage</label>                <input id="block_attempts" type="number" placeholder="Ex: 3" value="3" min="1"/>                <p data-key="admin_risk_attempts_note" class="small" style="color:var(--text-muted)">Nombre d'échecs consécutifs avant blocage du compte.</p>            </div>                        <button class="btn btn-primary" style="width:100%" onclick="saveRiskSettings()" data-key="admin_risk_btn">                <i class="fa-solid fa-save"></i> Sauvegarder les Paramètres            </button>            <div id="risk_msg" class="small" style="margin-top:10px"></div>        </div>      </div>
-      <button class="btn btn-outline" onclick="exportCSV()" style="margin-top:30px; border-color:red; color:var(--danger)" data-key="admin_export_btn">        <i class="fa-solid fa-file-export"></i> Exporter la Base Clients (CSV)      </button>
-      <hr style="border-top: 1px solid var(--border-color); margin: 30px 0;" />      <div style="margin-top:30px">        <h3 data-key="admin_clients_title"> Liste des Clients Actifs</h3>        <button class="btn btn-primary" onclick="loadAllClients()" data-key="admin_clients_refresh_btn">            <i class="fa-solid fa-refresh"></i> Actualiser la liste        </button>        <p id="client_list_msg" class="small" data-key="admin_clients_note" style="margin-top:10px; color:var(--text-muted)">Cliquez sur Actualiser pour charger les données clients.</p>                <div id="client_list_container" class="card" style="padding:0; margin-top: 15px; border:1px solid var(--border-color);">            <table id="client_table" style="width:100%; border-collapse:collapse; font-size:0.9rem;">                </table>        </div>      </div>    </div>  </section>
+  <section id="signup" style="display:none">
+    <div class="signup-container">
+      <div class="section-title">
+          <h2 data-key="signup_title">Ouverture de Compte</h2>
+          <p data-key="signup_subtitle">Rejoignez Nexus Groups en moins de 2 minutes.</p>
+      </div>
+      <div class="card" style="padding:30px">
+        <div data-key="signup_step1" style="margin-bottom:20px; border-bottom:1px solid var(--border-color); padding-bottom:10px; color:var(--accent-blue); font-weight:600">
+            <i class="fa-solid fa-user-shield"></i> Identité & Coordonnées
+        </div>
+
+        <div class="grid-2">
+            <div class="form-group">
+                <label data-key="signup_first_lbl">Prénom *</label>
+                <input id="su_first" data-key="signup_first_ph" placeholder="Jean" />
+            </div>
+            <div class="form-group">
+                <label data-key="signup_last_lbl">Nom *</label>
+                <input id="su_last" data-key="signup_last_ph" placeholder="Dupont" />
+            </div>
+        </div>
+        <div class="grid-2">
+            <div class="form-group">
+                <label data-key="signup_dob_lbl">Date de naissance</label>
+                <input id="su_dob" type="date" style="color-scheme:light"/>
+            </div>
+            <div class="form-group">
+                <label data-key="signup_phone_lbl">Téléphone (Mobile)</label>
+                <input id="su_phone" type="tel" data-key="signup_phone_ph" placeholder="+33 6 12 34 56 78" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label data-key="signup_address_lbl">Adresse de résidence</label>
+            <input id="su_address" data-key="signup_address_ph" placeholder="N°, Rue, Ville, Code Postal..." />
+        </div>
+
+        <div data-key="signup_step2" style="margin:25px 0 20px 0; border-bottom:1px solid var(--border-color); padding-bottom:10px; color:var(--accent-blue); font-weight:600">
+            <i class="fa-solid fa-wallet"></i> Configuration du Compte
+        </div>
+
+        <div class="grid-2">
+             <div class="form-group">
+                <label data-key="signup_country_lbl">Pays de résidence</label>
+                <select id="su_country">
+                    <option value="FR">France</option>
+                    <option value="BE">Belgique</option>
+                    <option value="CH">Suisse</option>
+                    <option value="CA">Canada</option>
+                    <option value="AF">Afrique (Tous pays)</option>
+                    <option value="US">États-Unis</option>
+                    <option value="Other">Autre</option>
+                </select>
+            </div>
+            <div class="form-group">
+                <label data-key="signup_type_lbl">Type de compte</label>
+                <select id="su_type">
+                    <option value="Checking" data-key="signup_type_checking">Compte Courant (Standard)</option>
+                    <option value="Savings" data-key="signup_type_savings">Compte Épargne</option>
+                    <option value="Business" data-key="signup_type_business">Compte Business / Pro</option>
+                </select>
+            </div>
+        </div>
+
+        <div class="grid-2">
+             <div class="form-group">
+                <label data-key="signup_email_lbl">Email (Identifiant) *</label>
+                <input id="su_email" type="email" data-key="signup_email_ph" placeholder="nom@email.com"/>
+            </div>
+            <div class="form-group">
+                <label data-key="signup_pass_lbl">Mot de passe *</label>
+                <input id="su_pass" type="password" data-key="signup_pass_ph" placeholder="8 caractères min."/>
+            </div>
+        </div>
+
+        <div data-key="signup_security_note" style="background:rgba(0, 119, 182, 0.05); padding:15px; border-radius:8px; margin-top:10px; font-size:0.85rem; color:var(--text-main); border:1px solid rgba(0, 119, 182, 0.3);">
+            <i class="fa-solid fa-lock"></i> Vos données sont chiffrées et sécurisées.
+        </div>
+
+        <button class="btn btn-primary" style="width:100%; margin-top:20px; padding:15px; font-size:1rem" onclick="registerUser()" data-key="signup_btn">
+            Valider mon identité et ouvrir le compte
+        </button>
+        <div id="su_msg" class="small" style="margin-top:10px; text-align:center; color:var(--accent-blue)"></div>
+        
+        <div style="text-align:center; margin-top:20px">
+             <a class="small" href="#" onclick="navigate('login')" data-key="signup_login_link">Vous avez déjà un compte ? Connectez-vous</a>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="login" style="display:none">
+    <div class="auth-container">
+      <div class="section-title"><h2 data-key="login_title">Espace Client</h2></div>
+      <div class="card">
+        <div class="form-group"><label data-key="login_email_lbl">Email</label><input id="li_email" type="email"/></div>
+        <div class="form-group"><label data-key="login_pass_lbl">Mot de passe</label><input id="li_pass" type="password"/></div>
+        <button class="btn btn-primary" style="width:100%" onclick="loginUser()" data-key="login_btn">Se connecter</button>
+        <div style="text-align:center; margin-top:15px">
+          <a class="small" href="#" onclick="navigate('forgot')" data-key="login_forgot_link">Mot de passe oublié ?</a><br>
+          <a class="small" href="#" onclick="navigate('signup')" data-key="login_signup_link">Créer un compte</a>
+        </div>
+        <div id="li_msg" class="small" style="margin-top:10px; color:var(--accent-blue)"></div>
+      </div>
+    </div>
+  </section>
+
+  <section id="forgot" style="display:none">
+    <div class="auth-container">
+      <div class="card">
+        <h3 data-key="forgot_title">Réinitialisation</h3>
+        <input id="fp_email" data-key="forgot_email_ph" placeholder="Email" type="email"/>
+        <button class="btn btn-primary" style="width:100%; margin-top:10px" onclick="sendPasswordReset()" data-key="forgot_btn">Envoyer</button>
+        <div id="fp_msg" class="small" style="margin-top:10px"></div>
+      </div>
+      </div>
+  </section>
+
+  <section id="dashboard" style="display:none">
+    <div class="container">
+      <div class="dashboard-header">
+        <div class="user-info">
+            <img id="avatar" style="width:50px;height:50px;border-radius:50%;object-fit:cover; border: 2px solid var(--accent-blue);" src="" />
+            <div>
+              <h2 style="margin:0; font-size:1.5rem;" id="db_name">Client</h2>
+              <div class="small" style="color:var(--text-muted)" id="db_email"></div>
+            </div>
+        </div>
+        <div style="display: flex; gap: 10px;">
+            <button class="btn btn-outline" id="btn_admin" style="display:none; color:var(--danger); font-weight:700; border-color:var(--danger);" onclick="navigate('admin')" data-key="db_btn_admin"> Admin</button>
+            <button class="btn btn-primary" onclick="logout()" data-key="db_btn_logout"><i class="fa-solid fa-power-off"></i> Déconnexion</button>
+        </div>
+      </div>
+
+      <div class="grid-2">
+        <div class="balance-card">
+          <div style="display:flex; justify-content:space-between; align-items:center; opacity:0.9">
+              <i class="fa-solid fa-wallet" style="font-size:1.2rem;"></i>
+              <div class="small" data-key="db_balance_current" style="color:white !important">Solde Courant</div>
+          </div>
+          <div style="font-size:3rem; font-weight:700; margin:15px 0 10px 0; color:white !important">
+            <span id="db_balance">0.00</span> €
+          </div>
+          <div style="opacity:0.8; font-size:0.9rem;">
+            <span data-key="db_account_type">Type de compte</span> : <span id="db_type">Standard</span>
+          </div>
+        </div>
+        
+        <div class="card" style="display:block; padding: 30px;">
+             <h3 data-key="db_ops_title" style="margin-top:0;">Détails & Opérations</h3>
+             <p data-key="db_ops_subtitle" style="color:var(--text-muted); font-size:0.9rem;">Accédez directement aux fonctionnalités de votre compte.</p>
+             <button class="btn btn-primary" style="width:100%" onclick="showTransferPanel()" data-key="db_ops_transfer">
+                <i class="fa-solid fa-arrow-right-arrow-left"></i> Transfert Interne
+             </button>
+             <button class="btn btn-outline" style="width:100%; margin-top:10px;" onclick="document.getElementById('profile_panel').style.display='block'; document.getElementById('transfer_panel').style.display='none'" data-key="db_ops_profile">
+                <i class="fa-solid fa-user-circle"></i> Gérer mon Profil
+             </button>
+        </div>
+      </div>
+
+      <div class="quick-actions">
+        <div class="action-btn" onclick="showTransferPanel()">
+          <i class="fa-solid fa-exchange"></i>
+          <span data-key="db_action_transfer">Transfert</span>
+        </div>
+        <div class="action-btn" onclick="alert('Fonctionnalité Dépôt en cours de développement')">
+          <i class="fa-solid fa-arrow-up-right-from-square"></i>
+          <span data-key="db_action_deposit">Dépôt</span>
+        </div>
+        <div class="action-btn" onclick="loadTransactions(document.getElementById('db_email').textContent)">
+          <i class="fa-solid fa-clock-rotate-left"></i>
+          <span data-key="db_action_history">Historique</span>
+        </div>
+        <div class="action-btn" onclick="alert('Fonctionnalité Support en cours de développement')">
+          <i class="fa-solid fa-headset"></i>
+          <span data-key="db_action_support">Support</span>
+        </div>
+      </div>
+
+
+      <div class="grid-2">
+        <div id="transfer_panel" class="card" style="display:none; grid-column: 1 / -1;">
+          <h3 data-key="db_panel_transfer_title" style="margin-top:0;">Transfert Interne (Compte à Compte)</h3>
+          <input id="transfer_amount" type="number" data-key="db_panel_transfer_ph" placeholder="Montant à virer (€)" style="margin-top:5px; margin-bottom:10px"/>
+          <select id="transfer_target" style="margin-bottom:10px">
+            <option value="Courant" data-key="db_panel_transfer_checking">Vers Compte Courant</option>
+            <option value="Épargne" data-key="db_panel_transfer_savings">Vers Compte Épargne</option>
+          </select>
+          <button class="btn btn-primary" style="width:100%" onclick="processInternalTransfer()" data-key="db_panel_transfer_btn">
+            <i class="fa-solid fa-arrow-right"></i> Effectuer le Transfert
+          </button>
+          <div id="transfer_msg" class="small" style="margin-top:10px; color:var(--text-muted)"></div>
+          <button class="btn btn-ghost" style="width:100%; margin-top:10px;" onclick="hidePanels()" data-key="db_panel_transfer_cancel">Annuler</button>
+        </div>
+
+        <div id="profile_panel" class="card" style="display:none; grid-column: 1 / -1;">
+          <h3 data-key="db_panel_profile_title" style="margin-top:0;">Gérer mon Profil</h3>
+          <label class="small" data-key="db_panel_profile_lbl">Changer Photo de Profil</label>
+          <div style="display:flex; gap:10px; margin-top:5px">
+            <input id="avatar_file" type="file" accept="image/*" style="padding:5px" />
+            <button class="btn btn-primary" onclick="uploadAvatar()" data-key="db_panel_profile_btn">Sauvegarder</button>
+          </div>
+          <button class="btn btn-ghost" style="width:100%; margin-top:20px;" onclick="hidePanels()" data-key="db_panel_profile_back">Retour au Tableau de Bord</button>
+        </div>
+      </div>
+
+      <div class="card" style="margin-top:24px">
+        <h3 data-key="db_history_title" style="border-bottom: 1px solid var(--border-color); padding-bottom: 15px; margin-top:0;">Historique des Transactions Récentes</h3>
+        <div id="tx_list" style="font-size:0.9rem; color:var(--text-main);">Chargement...</div>
+      </div>
+    </div>
+  </section>
+
+  <section id="admin" class="container" style="display:none; margin-top:20px">
+    <div class="card admin-panel" style="border:1px solid var(--danger);">
+      <h2 data-key="admin_title" style="color:var(--danger); margin-bottom:20px"><i class="fa-solid fa-user-lock"></i> Espace Administrateur</h2>
+      
+      <div class="grid-2">
+        
+        <div class="card">
+           <h4 data-key="admin_create_title">Créer un Nouveau Compte</h4>
+           <div class="grid-2" style="gap:10px; margin-bottom:5px">
+                <input id="admin_new_first" data-key="admin_first_ph" placeholder="Prénom" />
+                <input id="admin_new_last" data-key="admin_last_ph" placeholder="Nom" />
+            </div>
+            <input id="admin_new_email" type="email" data-key="admin_email_ph" placeholder="Email du nouveau client" style="margin-bottom:10px" />
+            <label class="small" data-key="admin_balance_lbl" style="display:block; margin-bottom:5px; color:var(--text-muted)">Solde Initial (€)</label>
+            <input id="admin_new_balance" type="number" data-key="admin_balance_ph" placeholder="Solde Initial (€)" value="100.00" style="margin-bottom:15px" />
+            <button class="btn btn-primary" style="width:100%" onclick="adminCreateUser()" data-key="admin_create_btn">
+                <i class="fa-solid fa-plus-circle"></i> Créer Compte Client
+            </button>
+            <div id="admin_create_msg" class="small" data-key="admin_create_note" style="margin-top:10px; color:var(--text-muted)">Un mot de passe temporaire sera généré.</div>
+        </div>
+
+        <div class="card">
+          <h4 data-key="admin_adjust_title">Modifier Solde Client</h4>
+          <input id="admin_target_email" data-key="admin_adjust_email_ph" placeholder="Email du client existant" style="margin-top:5px"/>
+          <input id="admin_amount" type="number" data-key="admin_adjust_amount_ph" placeholder="Montant (€)" style="margin-top:10px"/>
+          <select id="admin_type" style="margin-top:10px">
+            <option value="credit" data-key="admin_adjust_credit">Créditer (+)</option>
+            <option value="debit" data-key="admin_adjust_debit">Débiter (-)</option>
+          </select>
+          <button class="btn btn-primary" style="width:100%; margin-top:15px" onclick="adminAdjust()" data-key="admin_adjust_btn">
+            <i class="fa-solid fa-screwdriver-wrench"></i> Valider l'Ajustement
+          </button>
+          <div id="admin_msg" class="small" style="margin-top:10px"></div>
+        </div>
+      </div>
+      
+      <hr style="border-top: 1px solid var(--border-color); margin: 30px 0;" />
+      <div class="grid-2" style="margin-top:30px">
+        <div class="card" style="padding:20px; border:1px solid var(--accent-blue)">
+            <h3 data-key="admin_risk_title"> Paramètres de Risque / Blocage</h3>
+            <p data-key="admin_risk_subtitle" class="small" style="color:red; margin-bottom:15px">Contrôlez les tentatives de retrait des clients.</p>
+            
+            <div class="form-group">
+                <label data-key="admin_risk_percent_lbl">Seuil de Blocage (%)</label>
+                <input id="block_percent" type="number" placeholder="Ex: 50" value="50" min="0" max="100"/>
+                <p data-key="admin_risk_percent_note" class="small" style="color:var(--text-muted)">Le transfert échoue si le retrait est supérieur à ce pourcentage du solde actuel.</p>
+            </div>
+
+            <div class="form-group">
+                <label data-key="admin_risk_attempts_lbl">Tentatives Max. avant blocage</label>
+                <input id="block_attempts" type="number" placeholder="Ex: 3" value="3" min="1"/>
+                <p data-key="admin_risk_attempts_note" class="small" style="color:var(--text-muted)">Nombre d'échecs consécutifs avant blocage du compte.</p>
+            </div>
+            
+            <button class="btn btn-primary" style="width:100%" onclick="saveRiskSettings()" data-key="admin_risk_btn">
+                <i class="fa-solid fa-save"></i> Sauvegarder les Paramètres
+            </button>
+            <div id="risk_msg" class="small" style="margin-top:10px"></div>
+        </div>
+      </div>
+
+      <button class="btn btn-outline" onclick="exportCSV()" style="margin-top:30px; border-color:red; color:var(--danger)" data-key="admin_export_btn">
+        <i class="fa-solid fa-file-export"></i> Exporter la Base Clients (CSV)
+      </button>
+
+      <hr style="border-top: 1px solid var(--border-color); margin: 30px 0;" />
+      <div style="margin-top:30px">
+        <h3 data-key="admin_clients_title"> Liste des Clients Actifs</h3>
+        <button class="btn btn-primary" onclick="loadAllClients()" data-key="admin_clients_refresh_btn">
+            <i class="fa-solid fa-refresh"></i> Actualiser la liste
+        </button>
+        <p id="client_list_msg" class="small" data-key="admin_clients_note" style="margin-top:10px; color:var(--text-muted)">Cliquez sur Actualiser pour charger les données clients.</p>
+        
+        <div id="client_list_container" class="card" style="padding:0; margin-top: 15px; border:1px solid var(--border-color);">
+            <table id="client_table" style="width:100%; border-collapse:collapse; font-size:0.9rem;">
+                </table>
+        </div>
+      </div>
+    </div>
+  </section>
+
 </main>
-<footer>  <div class="container" style="text-align:center">    <div class="logo" style="justify-content:center; margin-bottom:20px"><i class="fa-solid fa-layer-group"></i> NEXUS GROUPS</div>    <p data-key="footer_copyright">© 2025 Nexus Groups Financial Services.</p>    <p data-key="footer_note" class="small" style="opacity:0.5">Plateforme de démonstration et gestion financière.</p>    <div style="margin-top:20px; display:flex; justify-content:center; gap:20px">      <a href="#" data-key="footer_legal">Légal</a>      <a href="mailto:pretalicialopez@gmail.com" data-key="footer_support">Support</a>    </div>  </div></footer>
-<script src="https://api.backendless.com/sdk/js/latest/backendless.min.js"></script><script>/* --- LOGIC MULTILINGUE & DIAPORAMA --- */
-let slideIndex = 1;let slideshowTimer;
-function showSlides(n) {  const slides = document.getElementsByClassName("slide");  const dots = document.getElementsByClassName("dot");  if (slides.length === 0) return;
-  if (n > slides.length) {slideIndex = 1}      if (n < 1) {slideIndex = slides.length}
-  for (let i = 0; i < slides.length; i++) {    slides[i].style.display = "none";    }  for (let i = 0; i < dots.length; i++) {    dots[i].className = dots[i].className.replace(" active-dot", "");  }
-  slides[slideIndex-1].style.display = "block";    dots[slideIndex-1].className += " active-dot";
-  clearInterval(slideshowTimer);  slideshowTimer = setInterval(autoSlides, 5000); }
-function plusSlides(n) { showSlides(slideIndex += n); }function currentSlide(n) { showSlides(slideIndex = n); }function autoSlides() { plusSlides(1); }
-function setupSlideshow() {    const slides = document.getElementsByClassName("slide");    const dotsContainer = document.getElementById("dots-container");    if (!slides || slides.length === 0 || !dotsContainer) return;        dotsContainer.innerHTML = '';    for (let i = 0; i < slides.length; i++) {        const dot = document.createElement("span");        dot.className = "dot";        dot.onclick = (function(index) { return function() { currentSlide(index + 1); }; })(i);        dotsContainer.appendChild(dot);    }    showSlides(slideIndex);    slideshowTimer = setInterval(autoSlides, 5000);}
-// --- DICTIONNAIRE 6 LANGUES MAJEURES ---const translations = {    'fr': {        'agent_title': ' Notre Équipe', 'agent_subtitle': 'L\'humain au cœur de la finance.',        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Support Client',        'agent2_name': 'Marc Leroi', 'agent2_role': 'Expert Investissement',        'agent3_name': 'Samira Diallo', 'agent3_role': 'Opérations Internationales',        'nav_home': 'Accueil', 'nav_services': 'Services', 'nav_contact': 'Contact', 'nav_login_btn': 'Espace Client',        'hero_tag': 'Finance Digitale & Sécurité', 'hero_title': 'La Banque de Nouvelle Génération.', 'hero_subtitle': 'Gérez votre argent simplement.', 'hero_btn_open': 'Ouvrir un compte', 'hero_btn_more': 'En savoir plus',        'about_title': 'Notre Mission', 'about_subtitle': 'Finance accessible pour tous.', 'about_who': 'Qui sommes-nous ?', 'about_p1': 'Une alternative agile aux banques classiques.', 'about_p2': 'Plus de 50 000 clients nous font confiance.', 'about_btn': 'Nos produits',        'services_title': 'Nos Services', 'services_subtitle': 'Tout pour gérer votre argent.', 'service1_title': 'Comptes & Virements', 'service1_p': 'IBAN personnel et virements rapides.', 'service2_title': 'Épargne', 'service2_p': 'Investissements et livrets flexibles.', 'service3_title': 'Cartes', 'service3_p': 'Gérez vos dépenses depuis l\'app.',        'loans_title': 'Nos Prêts', 'loans_subtitle': 'Financement adapté à vos projets.', 'loan1_name': 'Prêt Immobilier', 'loan1_p': 'Pour votre résidence principale.', 'loan1_rate': 'Taux dès 2.5%*', 'loan2_name': 'Crédit Conso', 'loan2_p': 'Auto, travaux, voyages.', 'loan2_duration': '1 à 7 ans', 'loan3_name': 'Prêt Étudiant', 'loan3_p': 'Financez vos études.', 'loan3_rate': 'Taux avantageux', 'loans_footer': '*Un crédit vous engage et doit être remboursé.', 'loans_btn': 'Demander un prêt',        'testi_title': 'Témoignages', 'testi_subtitle': 'Nos clients témoignent.', 'testi1_text': '"Prêt obtenu en 72h, service impeccable."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Frais réduits et sécurité au top."', 'testi2_author': '— Marc K.',        'faq_title': 'FAQ', 'faq_subtitle': 'Questions fréquentes.', 'faq1_q': 'Sécurité ?', 'faq1_a': 'Oui, chiffrement total et fonds ségrégués.', 'faq2_q': 'Ouvrir un compte ?', 'faq2_a': '100% en ligne en 5 minutes.', 'faq3_q': 'Frais ?', 'faq3_a': 'Taux réel + 0.5% de commission.',        'contact_title': 'Contact', 'contact_subtitle': 'Support 24/7.', 'contact_direct_title': 'Nous joindre', 'contact_email': 'Email', 'contact_phone': 'Tél', 'contact_address': 'Adresse', 'contact_form_title': 'Message', 'contact_form_name_ph': 'Nom', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Message...', 'contact_form_btn': 'Envoyer',        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Plateforme de démonstration.', 'footer_legal': 'Légal', 'footer_support': 'Support',        'signup_title': 'Inscription', 'signup_subtitle': 'Rapide et sécurisé.', 'signup_step1': 'Identité', 'signup_first_lbl': 'Prénom', 'signup_last_lbl': 'Nom', 'signup_dob_lbl': 'Naissance', 'signup_phone_lbl': 'Téléphone', 'signup_address_lbl': 'Adresse', 'signup_step2': 'Compte', 'signup_country_lbl': 'Pays', 'signup_type_lbl': 'Type', 'signup_type_checking': 'Courant', 'signup_type_savings': 'Épargne', 'signup_type_business': 'Business', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Mot de passe', 'signup_security_note': 'Données chiffrées.', 'signup_btn': 'Ouvrir le compte', 'signup_login_link': 'Déjà client ? Connexion',        'login_title': 'Connexion', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Mot de passe', 'login_btn': 'Se connecter', 'login_forgot_link': 'Oublié ?', 'login_signup_link': 'Créer un compte', 'forgot_title': 'Réinitialisation', 'forgot_btn': 'Envoyer',        'db_btn_admin': 'Admin', 'db_btn_logout': 'Déconnexion', 'db_balance_current': 'Solde', 'db_account_type': 'Compte', 'db_ops_title': 'Opérations', 'db_ops_subtitle': 'Gestion rapide.', 'db_ops_transfer': 'Virement Interne', 'db_ops_profile': 'Profil', 'db_action_transfer': 'Virement', 'db_action_deposit': 'Dépôt', 'db_action_history': 'Historique', 'db_action_support': 'Aide', 'db_panel_transfer_title': 'Virement', 'db_panel_transfer_ph': 'Montant (€)', 'db_panel_transfer_checking': 'Vers Courant', 'db_panel_transfer_savings': 'Vers Épargne', 'db_panel_transfer_btn': 'Valider', 'db_panel_transfer_cancel': 'Annuler', 'db_panel_profile_title': 'Profil', 'db_panel_profile_lbl': 'Photo', 'db_panel_profile_btn': 'Sauvegarder', 'db_panel_profile_back': 'Retour', 'db_history_title': 'Historique',        'admin_title': 'Admin', 'admin_create_title': 'Nouveau Client', 'admin_first_ph': 'Prénom', 'admin_last_ph': 'Nom', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Solde Initial', 'admin_create_btn': 'Créer', 'admin_create_note': 'Mdp temporaire généré.', 'admin_adjust_title': 'Ajustement', 'admin_adjust_email_ph': 'Email client', 'admin_adjust_amount_ph': 'Montant', 'admin_adjust_credit': 'Crédit (+)', 'admin_adjust_debit': 'Débit (-)', 'admin_adjust_btn': 'Valider', 'admin_risk_title': 'Risque / Blocage', 'admin_risk_subtitle': 'Sécurité retraits.', 'admin_risk_percent_lbl': 'Seuil (%)', 'admin_risk_attempts_lbl': 'Essais Max', 'admin_risk_btn': 'Sauvegarder', 'admin_export_btn': 'Export CSV', 'admin_clients_title': 'Clients Actifs', 'admin_clients_refresh_btn': 'Actualiser', 'admin_clients_note': 'Charger la liste.',    },    'en': {        'agent_title': ' Our Team', 'agent_subtitle': 'Human-centric finance.',        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Support Lead',        'agent2_name': 'Marc Leroi', 'agent2_role': 'Investment Expert',        'agent3_name': 'Samira Diallo', 'agent3_role': 'Intl. Operations',        'nav_home': 'Home', 'nav_services': 'Services', 'nav_contact': 'Contact', 'nav_login_btn': 'Client Area',        'hero_tag': 'Digital Finance & Security', 'hero_title': 'Next-Gen Banking Platform.', 'hero_subtitle': 'Manage your money simply.', 'hero_btn_open': 'Open Account', 'hero_btn_more': 'Learn More',        'about_title': 'Our Mission', 'about_subtitle': 'Accessible finance for all.', 'about_who': 'Who are we?', 'about_p1': 'Agile alternative to traditional banks.', 'about_p2': 'Over 50k clients trust us.', 'about_btn': 'Our Products',        'services_title': 'Our Services', 'services_subtitle': 'Everything to manage money.', 'service1_title': 'Accounts', 'service1_p': 'Personal IBAN & fast transfers.', 'service2_title': 'Savings', 'service2_p': 'Flexible investments.', 'service3_title': 'Cards', 'service3_p': 'Manage spending via app.',        'loans_title': 'Our Loans', 'loans_subtitle': 'Financing for your projects.', 'loan1_name': 'Mortgage', 'loan1_p': 'For your main home.', 'loan1_rate': 'Rates from 2.5%*', 'loan2_name': 'Consumer', 'loan2_p': 'Car, works, travel.', 'loan2_duration': '1-7 years', 'loan3_name': 'Student', 'loan3_p': 'Finance your studies.', 'loan3_rate': 'Good rates', 'loans_footer': '*Credit must be repaid.', 'loans_btn': 'Apply for Loan',        'testi_title': 'Testimonials', 'testi_subtitle': 'Client success.', 'testi1_text': '"Loan in 72h, great service."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Low fees and top security."', 'testi2_author': '— Marc K.',        'faq_title': 'FAQ', 'faq_subtitle': 'Common questions.', 'faq1_q': 'Security?', 'faq1_a': 'Yes, full encryption.', 'faq2_q': 'Open account?', 'faq2_a': '100% online in 5 mins.', 'faq3_q': 'Fees?', 'faq3_a': 'Real rate + 0.5% commission.',        'contact_title': 'Contact', 'contact_subtitle': '24/7 Support.', 'contact_direct_title': 'Reach us', 'contact_email': 'Email', 'contact_phone': 'Phone', 'contact_address': 'Address', 'contact_form_title': 'Message', 'contact_form_name_ph': 'Name', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Message...', 'contact_form_btn': 'Send',        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Demo platform.', 'footer_legal': 'Legal', 'footer_support': 'Support',        'signup_title': 'Sign Up', 'signup_subtitle': 'Fast & Secure.', 'signup_step1': 'Identity', 'signup_first_lbl': 'First Name', 'signup_last_lbl': 'Last Name', 'signup_dob_lbl': 'Birth Date', 'signup_phone_lbl': 'Phone', 'signup_address_lbl': 'Address', 'signup_step2': 'Account', 'signup_country_lbl': 'Country', 'signup_type_lbl': 'Type', 'signup_type_checking': 'Checking', 'signup_type_savings': 'Savings', 'signup_type_business': 'Business', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Password', 'signup_security_note': 'Encrypted data.', 'signup_btn': 'Open Account', 'signup_login_link': 'Login',        'login_title': 'Login', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Password', 'login_btn': 'Login', 'login_forgot_link': 'Forgot?', 'login_signup_link': 'Create Account', 'forgot_title': 'Reset', 'forgot_btn': 'Send',        'db_btn_admin': 'Admin', 'db_btn_logout': 'Logout', 'db_balance_current': 'Balance', 'db_account_type': 'Account', 'db_ops_title': 'Operations', 'db_ops_subtitle': 'Quick management.', 'db_ops_transfer': 'Internal Transfer', 'db_ops_profile': 'Profile', 'db_action_transfer': 'Transfer', 'db_action_deposit': 'Deposit', 'db_action_history': 'History', 'db_action_support': 'Help', 'db_panel_transfer_title': 'Transfer', 'db_panel_transfer_ph': 'Amount (€)', 'db_panel_transfer_checking': 'To Checking', 'db_panel_transfer_savings': 'To Savings', 'db_panel_transfer_btn': 'Confirm', 'db_panel_transfer_cancel': 'Cancel', 'db_panel_profile_title': 'Profile', 'db_panel_profile_lbl': 'Photo', 'db_panel_profile_btn': 'Save', 'db_panel_profile_back': 'Back', 'db_history_title': 'History',        'admin_title': 'Admin', 'admin_create_title': 'New Client', 'admin_first_ph': 'First Name', 'admin_last_ph': 'Last Name', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Init. Balance', 'admin_create_btn': 'Create', 'admin_create_note': 'Temp pass generated.', 'admin_adjust_title': 'Adjust', 'admin_adjust_email_ph': 'Client Email', 'admin_adjust_amount_ph': 'Amount', 'admin_adjust_credit': 'Credit (+)', 'admin_adjust_debit': 'Debit (-)', 'admin_adjust_btn': 'Confirm', 'admin_risk_title': 'Risk / Block', 'admin_risk_subtitle': 'Withdrawal security.', 'admin_risk_percent_lbl': 'Threshold (%)', 'admin_risk_attempts_lbl': 'Max Tries', 'admin_risk_btn': 'Save', 'admin_export_btn': 'Export CSV', 'admin_clients_title': 'Active Clients', 'admin_clients_refresh_btn': 'Refresh', 'admin_clients_note': 'Load list.',    },    'es': {        'agent_title': ' Nuestro Equipo', 'agent_subtitle': 'El lado humano de las finanzas.',        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Soporte al Cliente',        'agent2_name': 'Marc Leroi', 'agent2_role': 'Experto en Inversiones',        'agent3_name': 'Samira Diallo', 'agent3_role': 'Operaciones Internacionales',        'nav_home': 'Inicio', 'nav_services': 'Servicios', 'nav_contact': 'Contacto', 'nav_login_btn': 'Área Cliente',        'hero_tag': 'Finanzas Digitales', 'hero_title': 'Tu Banca de Nueva Generación.', 'hero_subtitle': 'Gestiona tu dinero fácilmente.', 'hero_btn_open': 'Abrir Cuenta', 'hero_btn_more': 'Saber más',        'about_title': 'Nuestra Misión', 'about_subtitle': 'Finanzas accesibles para todos.', 'about_who': '¿Quiénes somos?', 'about_p1': 'Alternativa ágil a la banca tradicional.', 'about_p2': '+50k clientes confían en nosotros.', 'about_btn': 'Productos',        'services_title': 'Servicios', 'services_subtitle': 'Todo para tu dinero.', 'service1_title': 'Cuentas', 'service1_p': 'IBAN personal y transferencias rápidas.', 'service2_title': 'Ahorro', 'service2_p': 'Inversiones flexibles.', 'service3_title': 'Tarjetas', 'service3_p': 'Control desde la app.',        'loans_title': 'Préstamos', 'loans_subtitle': 'Financiación a medida.', 'loan1_name': 'Hipoteca', 'loan1_p': 'Para tu hogar.', 'loan1_rate': 'Desde 2.5%*', 'loan2_name': 'Consumo', 'loan2_p': 'Coche, viajes.', 'loan2_duration': '1-7 años', 'loan3_name': 'Estudios', 'loan3_p': 'Financia tu futuro.', 'loan3_rate': 'Tasas bajas', 'loans_footer': '*Un crédito debe ser devuelto.', 'loans_btn': 'Solicitar',        'testi_title': 'Testimonios', 'testi_subtitle': 'Éxito de clientes.', 'testi1_text': '"Rápido y servicio impecable."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Seguridad total."', 'testi2_author': '— Marc K.',        'faq_title': 'FAQ', 'faq_subtitle': 'Preguntas frecuentes.', 'faq1_q': '¿Seguridad?', 'faq1_a': 'Sí, encriptación total.', 'faq2_q': '¿Abrir cuenta?', 'faq2_a': '100% online en 5 min.', 'faq3_q': '¿Comisiones?', 'faq3_a': 'Tasa real + 0.5%.',        'contact_title': 'Contacto', 'contact_subtitle': 'Soporte 24/7.', 'contact_direct_title': 'Directo', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Dirección', 'contact_form_title': 'Mensaje', 'contact_form_name_ph': 'Nombre', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Mensaje...', 'contact_form_btn': 'Enviar',        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Plataforma demo.', 'footer_legal': 'Legal', 'footer_support': 'Soporte',        'signup_title': 'Registro', 'signup_subtitle': 'Rápido y seguro.', 'signup_step1': 'Identidad', 'signup_first_lbl': 'Nombre', 'signup_last_lbl': 'Apellido', 'signup_dob_lbl': 'Fecha Nac.', 'signup_phone_lbl': 'Móvil', 'signup_address_lbl': 'Dirección', 'signup_step2': 'Cuenta', 'signup_country_lbl': 'País', 'signup_type_lbl': 'Tipo', 'signup_type_checking': 'Corriente', 'signup_type_savings': 'Ahorro', 'signup_type_business': 'Empresa', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Contraseña', 'signup_security_note': 'Datos seguros.', 'signup_btn': 'Crear Cuenta', 'signup_login_link': 'Entrar',        'login_title': 'Acceso', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Contraseña', 'login_btn': 'Entrar', 'login_forgot_link': '¿Olvidada?', 'login_signup_link': 'Crear cuenta', 'forgot_title': 'Reset', 'forgot_btn': 'Enviar',        'db_btn_admin': 'Admin', 'db_btn_logout': 'Salir', 'db_balance_current': 'Saldo', 'db_account_type': 'Cuenta', 'db_ops_title': 'Operaciones', 'db_ops_subtitle': 'Gestión rápida.', 'db_ops_transfer': 'Transferencia', 'db_ops_profile': 'Perfil', 'db_action_transfer': 'Transferir', 'db_action_deposit': 'Ingresar', 'db_action_history': 'Historial', 'db_action_support': 'Ayuda', 'db_panel_transfer_title': 'Transferencia', 'db_panel_transfer_ph': 'Importe (€)', 'db_panel_transfer_checking': 'A Corriente', 'db_panel_transfer_savings': 'A Ahorro', 'db_panel_transfer_btn': 'Confirmar', 'db_panel_transfer_cancel': 'Cancelar', 'db_panel_profile_title': 'Perfil', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Guardar', 'db_panel_profile_back': 'Volver', 'db_history_title': 'Historial',        'admin_title': 'Admin', 'admin_create_title': 'Nuevo Cliente', 'admin_first_ph': 'Nombre', 'admin_last_ph': 'Apellido', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Saldo Inic.', 'admin_create_btn': 'Crear', 'admin_create_note': 'Pass temporal.', 'admin_adjust_title': 'Ajuste', 'admin_adjust_email_ph': 'Email Cliente', 'admin_adjust_amount_ph': 'Importe', 'admin_adjust_credit': 'Crédito (+)', 'admin_adjust_debit': 'Débito (-)', 'admin_adjust_btn': 'Validar', 'admin_risk_title': 'Riesgo', 'admin_risk_subtitle': 'Control retiros.', 'admin_risk_percent_lbl': 'Límite (%)', 'admin_risk_attempts_lbl': 'Intentos', 'admin_risk_btn': 'Guardar', 'admin_export_btn': 'Exportar CSV', 'admin_clients_title': 'Clientes', 'admin_clients_refresh_btn': 'Actualizar', 'admin_clients_note': 'Cargar lista.',    },    'pt': {        'agent_title': ' Nossa Equipe', 'agent_subtitle': 'O lado humano das finanças.',        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Suporte ao Cliente',        'agent2_name': 'Marc Leroi', 'agent2_role': 'Especialista em Investimentos',        'agent3_name': 'Samira Diallo', 'agent3_role': 'Operações Internacionais',        'nav_home': 'Início', 'nav_services': 'Serviços', 'nav_contact': 'Contato', 'nav_login_btn': 'Área Cliente',        'hero_tag': 'Finanças Digitais', 'hero_title': 'Seu Banco de Nova Geração.', 'hero_subtitle': 'Gerencie seu dinheiro facilmente.', 'hero_btn_open': 'Abrir Conta', 'hero_btn_more': 'Saiba mais',        'about_title': 'Missão', 'about_subtitle': 'Finanças acessíveis.', 'about_who': 'Quem somos?', 'about_p1': 'Alternativa ágil aos bancos.', 'about_p2': '+50k clientes confiam.', 'about_btn': 'Produtos',        'services_title': 'Serviços', 'services_subtitle': 'Tudo para seu dinheiro.', 'service1_title': 'Contas', 'service1_p': 'IBAN e transferências rápidas.', 'service2_title': 'Poupança', 'service2_p': 'Investimentos flexíveis.', 'service3_title': 'Cartões', 'service3_p': 'Controle pelo app.',        'loans_title': 'Empréstimos', 'loans_subtitle': 'Financiamento ideal.', 'loan1_name': 'Imobiliário', 'loan1_p': 'Para sua casa.', 'loan1_rate': 'Taxas de 2.5%*', 'loan2_name': 'Consumo', 'loan2_p': 'Carro, obras.', 'loan2_duration': '1-7 anos', 'loan3_name': 'Estudante', 'loan3_p': 'Financie estudos.', 'loan3_rate': 'Taxas baixas', 'loans_footer': '*Crédito deve ser pago.', 'loans_btn': 'Solicitar',        'testi_title': 'Depoimentos', 'testi_subtitle': 'Sucesso dos clientes.', 'testi1_text': '"Rápido e serviço impecável."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Segurança total."', 'testi2_author': '— Marc K.',        'faq_title': 'FAQ', 'faq_subtitle': 'Perguntas comuns.', 'faq1_q': 'Segurança?', 'faq1_a': 'Sim, criptografia total.', 'faq2_q': 'Abrir conta?', 'faq2_a': '100% online em 5 min.', 'faq3_q': 'Taxas?', 'faq3_a': 'Taxa real + 0.5%.',        'contact_title': 'Contato', 'contact_subtitle': 'Suporte 24/7.', 'contact_direct_title': 'Direto', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Endereço', 'contact_form_title': 'Mensagem', 'contact_form_name_ph': 'Nome', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Mensagem...', 'contact_form_btn': 'Enviar',        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Plataforma demo.', 'footer_legal': 'Legal', 'footer_support': 'Suporte',        'signup_title': 'Cadastro', 'signup_subtitle': 'Rápido e seguro.', 'signup_step1': 'Identidade', 'signup_first_lbl': 'Nome', 'signup_last_lbl': 'Sobrenome', 'signup_dob_lbl': 'Nascimento', 'signup_phone_lbl': 'Celular', 'signup_address_lbl': 'Endereço', 'signup_step2': 'Conta', 'signup_country_lbl': 'País', 'signup_type_lbl': 'Tipo', 'signup_type_checking': 'Corrente', 'signup_type_savings': 'Poupança', 'signup_type_business': 'Empresa', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Senha', 'signup_security_note': 'Dados seguros.', 'signup_btn': 'Criar Conta', 'signup_login_link': 'Entrar',        'login_title': 'Acesso', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Senha', 'login_btn': 'Entrar', 'login_forgot_link': 'Esqueceu?', 'login_signup_link': 'Criar conta', 'forgot_title': 'Reset', 'forgot_btn': 'Enviar',        'db_btn_admin': 'Admin', 'db_btn_logout': 'Sair', 'db_balance_current': 'Saldo', 'db_account_type': 'Conta', 'db_ops_title': 'Operações', 'db_ops_subtitle': 'Gestão rápida.', 'db_ops_transfer': 'Transferência', 'db_ops_profile': 'Perfil', 'db_action_transfer': 'Transferir', 'db_action_deposit': 'Depositar', 'db_action_history': 'Extrato', 'db_action_support': 'Ajuda', 'db_panel_transfer_title': 'Transferência', 'db_panel_transfer_ph': 'Valor (€)', 'db_panel_transfer_checking': 'P/ Corrente', 'db_panel_transfer_savings': 'P/ Poupança', 'db_panel_transfer_btn': 'Confirmar', 'db_panel_transfer_cancel': 'Cancelar', 'db_panel_profile_title': 'Perfil', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Salvar', 'db_panel_profile_back': 'Voltar', 'db_history_title': 'Histórico',        'admin_title': 'Admin', 'admin_create_title': 'Novo Cliente', 'admin_first_ph': 'Nome', 'admin_last_ph': 'Sobrenome', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Saldo Inic.', 'admin_create_btn': 'Criar', 'admin_create_note': 'Senha temp.', 'admin_adjust_title': 'Ajuste', 'admin_adjust_email_ph': 'Email Cliente', 'admin_adjust_amount_ph': 'Valor', 'admin_adjust_credit': 'Crédito (+)', 'admin_adjust_debit': 'Débito (-)', 'admin_adjust_btn': 'Validar', 'admin_risk_title': 'Risco', 'admin_risk_subtitle': 'Controle saques.', 'admin_risk_percent_lbl': 'Limite (%)', 'admin_risk_attempts_lbl': 'Tentativas', 'admin_risk_btn': 'Salvar', 'admin_export_btn': 'Exportar CSV', 'admin_clients_title': 'Clientes', 'admin_clients_refresh_btn': 'Atualizar', 'admin_clients_note': 'Carregar lista.',    },    'de': {        'agent_title': ' Unser Team', 'agent_subtitle': 'Der Mensch im Mittelpunkt.',        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Kundensupport',        'agent2_name': 'Marc Leroi', 'agent2_role': 'Anlageexperte',        'agent3_name': 'Samira Diallo', 'agent3_role': 'Intl. Operationen',        'nav_home': 'Startseite', 'nav_services': 'Dienste', 'nav_contact': 'Kontakt', 'nav_login_btn': 'Kundenbereich',        'hero_tag': 'Digitale Finanzen', 'hero_title': 'Banking der nächsten Generation.', 'hero_subtitle': 'Verwalten Sie Ihr Geld einfach.', 'hero_btn_open': 'Konto eröffnen', 'hero_btn_more': 'Mehr Infos',        'about_title': 'Mission', 'about_subtitle': 'Finanzen für alle.', 'about_who': 'Wer sind wir?', 'about_p1': 'Agile Alternative zu Banken.', 'about_p2': '+50k Kunden vertrauen uns.', 'about_btn': 'Produkte',        'services_title': 'Dienste', 'services_subtitle': 'Alles für Ihr Geld.', 'service1_title': 'Konten', 'service1_p': 'IBAN & schnelle Überweisungen.', 'service2_title': 'Sparen', 'service2_p': 'Flexible Anlagen.', 'service3_title': 'Karten', 'service3_p': 'App-Steuerung.',        'loans_title': 'Kredite', 'loans_subtitle': 'Finanzierung.', 'loan1_name': 'Hypothek', 'loan1_p': 'Für Ihr Zuhause.', 'loan1_rate': 'Ab 2.5%*', 'loan2_name': 'Privatkredit', 'loan2_p': 'Auto, Reisen.', 'loan2_duration': '1-7 Jahre', 'loan3_name': 'Studium', 'loan3_p': 'Studienfinanzierung.', 'loan3_rate': 'Gute Raten', 'loans_footer': '*Kredit muss zurückgezahlt werden.', 'loans_btn': 'Beantragen',        'testi_title': 'Kundenstimmen', 'testi_subtitle': 'Erfolg unserer Kunden.', 'testi1_text': '"Schnell & top Service."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Sicher & günstig."', 'testi2_author': '— Marc K.',        'faq_title': 'FAQ', 'faq_subtitle': 'Häufige Fragen.', 'faq1_q': 'Sicherheit?', 'faq1_a': 'Ja, volle Verschlüsselung.', 'faq2_q': 'Konto öffnen?', 'faq2_a': '100% online in 5 Min.', 'faq3_q': 'Gebühren?', 'faq3_a': 'Realkurs + 0.5%.',        'contact_title': 'Kontakt', 'contact_subtitle': '24/7 Support.', 'contact_direct_title': 'Direkt', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Adresse', 'contact_form_title': 'Nachricht', 'contact_form_name_ph': 'Name', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Nachricht...', 'contact_form_btn': 'Senden',        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Demo-Plattform.', 'footer_legal': 'Rechtliches', 'footer_support': 'Support',        'signup_title': 'Registrierung', 'signup_subtitle': 'Schnell & Sicher.', 'signup_step1': 'Identität', 'signup_first_lbl': 'Vorname', 'signup_last_lbl': 'Nachname', 'signup_dob_lbl': 'Geburtsdatum', 'signup_phone_lbl': 'Handy', 'signup_address_lbl': 'Adresse', 'signup_step2': 'Konto', 'signup_country_lbl': 'Land', 'signup_type_lbl': 'Typ', 'signup_type_checking': 'Girokonto', 'signup_type_savings': 'Sparkonto', 'signup_type_business': 'Geschäft', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Passwort', 'signup_security_note': 'Daten verschlüsselt.', 'signup_btn': 'Konto erstellen', 'signup_login_link': 'Login',        'login_title': 'Login', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Passwort', 'login_btn': 'Anmelden', 'login_forgot_link': 'Vergessen?', 'login_signup_link': 'Konto erstellen', 'forgot_title': 'Reset', 'forgot_btn': 'Senden',        'db_btn_admin': 'Admin', 'db_btn_logout': 'Logout', 'db_balance_current': 'Guthaben', 'db_account_type': 'Konto', 'db_ops_title': 'Operationen', 'db_ops_subtitle': 'Schnellzugriff.', 'db_ops_transfer': 'Überweisung', 'db_ops_profile': 'Profil', 'db_action_transfer': 'Senden', 'db_action_deposit': 'Einzahlen', 'db_action_history': 'Verlauf', 'db_action_support': 'Hilfe', 'db_panel_transfer_title': 'Überweisung', 'db_panel_transfer_ph': 'Betrag (€)', 'db_panel_transfer_checking': 'Auf Giro', 'db_panel_transfer_savings': 'Auf Spar', 'db_panel_transfer_btn': 'Bestätigen', 'db_panel_transfer_cancel': 'Abbrechen', 'db_panel_profile_title': 'Profil', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Speichern', 'db_panel_profile_back': 'Zurück', 'db_history_title': 'Verlauf',        'admin_title': 'Admin', 'admin_create_title': 'Neuer Kunde', 'admin_first_ph': 'Vorname', 'admin_last_ph': 'Nachname', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Startguthaben', 'admin_create_btn': 'Erstellen', 'admin_create_note': 'Temp. Passwort.', 'admin_adjust_title': 'Anpassen', 'admin_adjust_email_ph': 'Kunden Email', 'admin_adjust_amount_ph': 'Betrag', 'admin_adjust_credit': 'Haben (+)', 'admin_adjust_debit': 'Soll (-)', 'admin_adjust_btn': 'Validieren', 'admin_risk_title': 'Risiko', 'admin_risk_subtitle': 'Auszahlungskontrolle.', 'admin_risk_percent_lbl': 'Limit (%)', 'admin_risk_attempts_lbl': 'Versuche', 'admin_risk_btn': 'Speichern', 'admin_export_btn': 'CSV Export', 'admin_clients_title': 'Kunden', 'admin_clients_refresh_btn': 'Aktualisieren', 'admin_clients_note': 'Liste laden.',    },    'it': {        'agent_title': ' Il Nostro Team', 'agent_subtitle': 'Il lato umano della finanza.',        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Supporto Clienti',        'agent2_name': 'Marc Leroi', 'agent2_role': 'Esperto Investimenti',        'agent3_name': 'Samira Diallo', 'agent3_role': 'Operazioni Internazionali',        'nav_home': 'Home', 'nav_services': 'Servizi', 'nav_contact': 'Contatti', 'nav_login_btn': 'Area Clienti',        'hero_tag': 'Finanza Digitale', 'hero_title': 'La Tua Banca di Nuova Generazione.', 'hero_subtitle': 'Gestisci il denaro facilmente.', 'hero_btn_open': 'Apri Conto', 'hero_btn_more': 'Scopri di più',        'about_title': 'Missione', 'about_subtitle': 'Finanza accessibile.', 'about_who': 'Chi siamo?', 'about_p1': 'Alternativa agile alle banche.', 'about_p2': '+50k clienti si fidano.', 'about_btn': 'Prodotti',        'services_title': 'Servizi', 'services_subtitle': 'Tutto per il tuo denaro.', 'service1_title': 'Conti', 'service1_p': 'IBAN e bonifici rapidi.', 'service2_title': 'Risparmio', 'service2_p': 'Investimenti flessibili.', 'service3_title': 'Carte', 'service3_p': 'Controllo via app.',        'loans_title': 'Prestiti', 'loans_subtitle': 'Finanziamenti su misura.', 'loan1_name': 'Mutuo', 'loan1_p': 'Per la tua casa.', 'loan1_rate': 'Da 2.5%*', 'loan2_name': 'Personale', 'loan2_p': 'Auto, viaggi.', 'loan2_duration': '1-7 anni', 'loan3_name': 'Studenti', 'loan3_p': 'Finanzia gli studi.', 'loan3_rate': 'Tassi bassi', 'loans_footer': '*Il credito va rimborsato.', 'loans_btn': 'Richiedi',        'testi_title': 'Testimonianze', 'testi_subtitle': 'Clienti soddisfatti.', 'testi1_text': '"Veloce e servizio top."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Sicurezza totale."', 'testi2_author': '— Marc K.',        'faq_title': 'FAQ', 'faq_subtitle': 'Domande frequenti.', 'faq1_q': 'Sicurezza?', 'faq1_a': 'Sì, crittografia totale.', 'faq2_q': 'Aprire conto?', 'faq2_a': '100% online in 5 min.', 'faq3_q': 'Commissioni?', 'faq3_a': 'Tasso reale + 0.5%.',        'contact_title': 'Contatti', 'contact_subtitle': 'Supporto 24/7.', 'contact_direct_title': 'Diretto', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Indirizzo', 'contact_form_title': 'Messaggio', 'contact_form_name_ph': 'Nome', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Messaggio...', 'contact_form_btn': 'Invia',        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Piattaforma demo.', 'footer_legal': 'Legale', 'footer_support': 'Supporto',        'signup_title': 'Registrazione', 'signup_subtitle': 'Veloce e Sicuro.', 'signup_step1': 'Identità', 'signup_first_lbl': 'Nome', 'signup_last_lbl': 'Cognome', 'signup_dob_lbl': 'Data Nascita', 'signup_phone_lbl': 'Cellulare', 'signup_address_lbl': 'Indirizzo', 'signup_step2': 'Conto', 'signup_country_lbl': 'Paese', 'signup_type_lbl': 'Tipo', 'signup_type_checking': 'Corrente', 'signup_type_savings': 'Risparmio', 'signup_type_business': 'Business', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Password', 'signup_security_note': 'Dati sicuri.', 'signup_btn': 'Crea Conto', 'signup_login_link': 'Accedi',        'login_title': 'Accesso', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Password', 'login_btn': 'Accedi', 'login_forgot_link': 'Password persa?', 'login_signup_link': 'Crea conto', 'forgot_title': 'Reset', 'forgot_btn': 'Invia',        'db_btn_admin': 'Admin', 'db_btn_logout': 'Esci', 'db_balance_current': 'Saldo', 'db_account_type': 'Conto', 'db_ops_title': 'Operazioni', 'db_ops_subtitle': 'Gestione rapida.', 'db_ops_transfer': 'Bonifico', 'db_ops_profile': 'Profilo', 'db_action_transfer': 'Invia', 'db_action_deposit': 'Deposita', 'db_action_history': 'Storico', 'db_action_support': 'Aiuto', 'db_panel_transfer_title': 'Bonifico', 'db_panel_transfer_ph': 'Importo (€)', 'db_panel_transfer_checking': 'A Corrente', 'db_panel_transfer_savings': 'A Risparmio', 'db_panel_transfer_btn': 'Conferma', 'db_panel_transfer_cancel': 'Annulla', 'db_panel_profile_title': 'Profilo', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Salva', 'db_panel_profile_back': 'Indietro', 'db_history_title': 'Storico',        'admin_title': 'Admin', 'admin_create_title': 'Nuovo Cliente', 'admin_first_ph': 'Nome', 'admin_last_ph': 'Cognome', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Saldo Iniz.', 'admin_create_btn': 'Crea', 'admin_create_note': 'Pass temp.', 'admin_adjust_title': 'Rettifica', 'admin_adjust_email_ph': 'Email Cliente', 'admin_adjust_amount_ph': 'Importo', 'admin_adjust_credit': 'Accredito (+)', 'admin_adjust_debit': 'Addebito (-)', 'admin_adjust_btn': 'Conferma', 'admin_risk_title': 'Rischio', 'admin_risk_subtitle': 'Controllo prelievi.', 'admin_risk_percent_lbl': 'Soglia (%)', 'admin_risk_attempts_lbl': 'Tentativi', 'admin_risk_btn': 'Salva', 'admin_export_btn': 'Export CSV', 'admin_clients_title': 'Clienti', 'admin_clients_refresh_btn': 'Aggiorna', 'admin_clients_note': 'Carica lista.',    }};
+
+<footer>
+  <div class="container" style="text-align:center">
+    <div class="logo" style="justify-content:center; margin-bottom:20px"><i class="fa-solid fa-layer-group"></i> NEXUS GROUPS</div>
+    <p data-key="footer_copyright">© 2025 Nexus Groups Financial Services.</p>
+    <p data-key="footer_note" class="small" style="opacity:0.5">Plateforme de démonstration et gestion financière.</p>
+    <div style="margin-top:20px; display:flex; justify-content:center; gap:20px">
+      <a href="#" data-key="footer_legal">Légal</a>
+      <a href="mailto:pretalicialopez@gmail.com" data-key="footer_support">Support</a>
+    </div>
+  </div>
+</footer>
+
+<script src="https://api.backendless.com/sdk/js/latest/backendless.min.js"></script>
+<script>
+/* --- LOGIC MULTILINGUE & DIAPORAMA --- */
+
+let slideIndex = 1;
+let slideshowTimer;
+
+function showSlides(n) {
+  const slides = document.getElementsByClassName("slide");
+  const dots = document.getElementsByClassName("dot");
+  if (slides.length === 0) return;
+
+  if (n > slides.length) {slideIndex = 1}    
+  if (n < 1) {slideIndex = slides.length}
+
+  for (let i = 0; i < slides.length; i++) {
+    slides[i].style.display = "none";  
+  }
+  for (let i = 0; i < dots.length; i++) {
+    dots[i].className = dots[i].className.replace(" active-dot", "");
+  }
+
+  slides[slideIndex-1].style.display = "block";  
+  dots[slideIndex-1].className += " active-dot";
+
+  clearInterval(slideshowTimer);
+  slideshowTimer = setInterval(autoSlides, 5000); 
+}
+
+function plusSlides(n) { showSlides(slideIndex += n); }
+function currentSlide(n) { showSlides(slideIndex = n); }
+function autoSlides() { plusSlides(1); }
+
+function setupSlideshow() {
+    const slides = document.getElementsByClassName("slide");
+    const dotsContainer = document.getElementById("dots-container");
+    if (!slides || slides.length === 0 || !dotsContainer) return;
+    
+    dotsContainer.innerHTML = '';
+    for (let i = 0; i < slides.length; i++) {
+        const dot = document.createElement("span");
+        dot.className = "dot";
+        dot.onclick = (function(index) { return function() { currentSlide(index + 1); }; })(i);
+        dotsContainer.appendChild(dot);
+    }
+    showSlides(slideIndex);
+    slideshowTimer = setInterval(autoSlides, 5000);
+}
+
+// --- DICTIONNAIRE 6 LANGUES MAJEURES ---
+const translations = {
+    'fr': {
+        'agent_title': ' Notre Équipe', 'agent_subtitle': 'L\'humain au cœur de la finance.',
+        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Support Client',
+        'agent2_name': 'Marc Leroi', 'agent2_role': 'Expert Investissement',
+        'agent3_name': 'Samira Diallo', 'agent3_role': 'Opérations Internationales',
+        'nav_home': 'Accueil', 'nav_services': 'Services', 'nav_contact': 'Contact', 'nav_login_btn': 'Espace Client',
+        'hero_tag': 'Finance Digitale & Sécurité', 'hero_title': 'La Banque de Nouvelle Génération.', 'hero_subtitle': 'Gérez votre argent simplement.', 'hero_btn_open': 'Ouvrir un compte', 'hero_btn_more': 'En savoir plus',
+        'about_title': 'Notre Mission', 'about_subtitle': 'Finance accessible pour tous.', 'about_who': 'Qui sommes-nous ?', 'about_p1': 'Une alternative agile aux banques classiques.', 'about_p2': 'Plus de 50 000 clients nous font confiance.', 'about_btn': 'Nos produits',
+        'services_title': 'Nos Services', 'services_subtitle': 'Tout pour gérer votre argent.', 'service1_title': 'Comptes & Virements', 'service1_p': 'IBAN personnel et virements rapides.', 'service2_title': 'Épargne', 'service2_p': 'Investissements et livrets flexibles.', 'service3_title': 'Cartes', 'service3_p': 'Gérez vos dépenses depuis l\'app.',
+        'loans_title': 'Nos Prêts', 'loans_subtitle': 'Financement adapté à vos projets.', 'loan1_name': 'Prêt Immobilier', 'loan1_p': 'Pour votre résidence principale.', 'loan1_rate': 'Taux dès 2.5%*', 'loan2_name': 'Crédit Conso', 'loan2_p': 'Auto, travaux, voyages.', 'loan2_duration': '1 à 7 ans', 'loan3_name': 'Prêt Étudiant', 'loan3_p': 'Financez vos études.', 'loan3_rate': 'Taux avantageux', 'loans_footer': '*Un crédit vous engage et doit être remboursé.', 'loans_btn': 'Demander un prêt',
+        'testi_title': 'Témoignages', 'testi_subtitle': 'Nos clients témoignent.', 'testi1_text': '"Prêt obtenu en 72h, service impeccable."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Frais réduits et sécurité au top."', 'testi2_author': '— Marc K.',
+        'faq_title': 'FAQ', 'faq_subtitle': 'Questions fréquentes.', 'faq1_q': 'Sécurité ?', 'faq1_a': 'Oui, chiffrement total et fonds ségrégués.', 'faq2_q': 'Ouvrir un compte ?', 'faq2_a': '100% en ligne en 5 minutes.', 'faq3_q': 'Frais ?', 'faq3_a': 'Taux réel + 0.5% de commission.',
+        'contact_title': 'Contact', 'contact_subtitle': 'Support 24/7.', 'contact_direct_title': 'Nous joindre', 'contact_email': 'Email', 'contact_phone': 'Tél', 'contact_address': 'Adresse', 'contact_form_title': 'Message', 'contact_form_name_ph': 'Nom', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Message...', 'contact_form_btn': 'Envoyer',
+        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Plateforme de démonstration.', 'footer_legal': 'Légal', 'footer_support': 'Support',
+        'signup_title': 'Inscription', 'signup_subtitle': 'Rapide et sécurisé.', 'signup_step1': 'Identité', 'signup_first_lbl': 'Prénom', 'signup_last_lbl': 'Nom', 'signup_dob_lbl': 'Naissance', 'signup_phone_lbl': 'Téléphone', 'signup_address_lbl': 'Adresse', 'signup_step2': 'Compte', 'signup_country_lbl': 'Pays', 'signup_type_lbl': 'Type', 'signup_type_checking': 'Courant', 'signup_type_savings': 'Épargne', 'signup_type_business': 'Business', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Mot de passe', 'signup_security_note': 'Données chiffrées.', 'signup_btn': 'Ouvrir le compte', 'signup_login_link': 'Déjà client ? Connexion',
+        'login_title': 'Connexion', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Mot de passe', 'login_btn': 'Se connecter', 'login_forgot_link': 'Oublié ?', 'login_signup_link': 'Créer un compte', 'forgot_title': 'Réinitialisation', 'forgot_btn': 'Envoyer',
+        'db_btn_admin': 'Admin', 'db_btn_logout': 'Déconnexion', 'db_balance_current': 'Solde', 'db_account_type': 'Compte', 'db_ops_title': 'Opérations', 'db_ops_subtitle': 'Gestion rapide.', 'db_ops_transfer': 'Virement Interne', 'db_ops_profile': 'Profil', 'db_action_transfer': 'Virement', 'db_action_deposit': 'Dépôt', 'db_action_history': 'Historique', 'db_action_support': 'Aide', 'db_panel_transfer_title': 'Virement', 'db_panel_transfer_ph': 'Montant (€)', 'db_panel_transfer_checking': 'Vers Courant', 'db_panel_transfer_savings': 'Vers Épargne', 'db_panel_transfer_btn': 'Valider', 'db_panel_transfer_cancel': 'Annuler', 'db_panel_profile_title': 'Profil', 'db_panel_profile_lbl': 'Photo', 'db_panel_profile_btn': 'Sauvegarder', 'db_panel_profile_back': 'Retour', 'db_history_title': 'Historique',
+        'admin_title': 'Admin', 'admin_create_title': 'Nouveau Client', 'admin_first_ph': 'Prénom', 'admin_last_ph': 'Nom', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Solde Initial', 'admin_create_btn': 'Créer', 'admin_create_note': 'Mdp temporaire généré.', 'admin_adjust_title': 'Ajustement', 'admin_adjust_email_ph': 'Email client', 'admin_adjust_amount_ph': 'Montant', 'admin_adjust_credit': 'Créditer (+)', 'admin_adjust_debit': 'Débiter (-)', 'admin_adjust_btn': 'Valider', 'admin_risk_title': 'Risque / Blocage', 'admin_risk_subtitle': 'Sécurité retraits.', 'admin_risk_percent_lbl': 'Seuil (%)', 'admin_risk_attempts_lbl': 'Essais Max', 'admin_risk_btn': 'Sauvegarder', 'admin_export_btn': 'Export CSV', 'admin_clients_title': 'Clients Actifs', 'admin_clients_refresh_btn': 'Actualiser', 'admin_clients_note': 'Charger la liste.',
+    },
+    'en': {
+        'agent_title': ' Our Team', 'agent_subtitle': 'Human-centric finance.',
+        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Support Lead',
+        'agent2_name': 'Marc Leroi', 'agent2_role': 'Investment Expert',
+        'agent3_name': 'Samira Diallo', 'agent3_role': 'Intl. Operations',
+        'nav_home': 'Home', 'nav_services': 'Services', 'nav_contact': 'Contact', 'nav_login_btn': 'Client Area',
+        'hero_tag': 'Digital Finance & Security', 'hero_title': 'Next-Gen Banking Platform.', 'hero_subtitle': 'Manage your money simply.', 'hero_btn_open': 'Open Account', 'hero_btn_more': 'Learn More',
+        'about_title': 'Our Mission', 'about_subtitle': 'Accessible finance for all.', 'about_who': 'Who are we?', 'about_p1': 'Agile alternative to traditional banks.', 'about_p2': 'Over 50k clients trust us.', 'about_btn': 'Our Products',
+        'services_title': 'Our Services', 'services_subtitle': 'Everything to manage money.', 'service1_title': 'Accounts', 'service1_p': 'Personal IBAN & fast transfers.', 'service2_title': 'Savings', 'service2_p': 'Flexible investments.', 'service3_title': 'Cards', 'service3_p': 'Manage spending via app.',
+        'loans_title': 'Our Loans', 'loans_subtitle': 'Financing for your projects.', 'loan1_name': 'Mortgage', 'loan1_p': 'For your main home.', 'loan1_rate': 'Rates from 2.5%*', 'loan2_name': 'Consumer', 'loan2_p': 'Car, works, travel.', 'loan2_duration': '1-7 years', 'loan3_name': 'Student', 'loan3_p': 'Finance your studies.', 'loan3_rate': 'Good rates', 'loans_footer': '*Credit must be repaid.', 'loans_btn': 'Apply for Loan',
+        'testi_title': 'Testimonials', 'testi_subtitle': 'Client success.', 'testi1_text': '"Loan in 72h, great service."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Low fees and top security."', 'testi2_author': '— Marc K.',
+        'faq_title': 'FAQ', 'faq_subtitle': 'Common questions.', 'faq1_q': 'Security?', 'faq1_a': 'Yes, full encryption.', 'faq2_q': 'Open account?', 'faq2_a': '100% online in 5 mins.', 'faq3_q': 'Fees?', 'faq3_a': 'Real rate + 0.5% commission.',
+        'contact_title': 'Contact', 'contact_subtitle': '24/7 Support.', 'contact_direct_title': 'Reach us', 'contact_email': 'Email', 'contact_phone': 'Phone', 'contact_address': 'Address', 'contact_form_title': 'Message', 'contact_form_name_ph': 'Name', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Message...', 'contact_form_btn': 'Send',
+        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Demo platform.', 'footer_legal': 'Legal', 'footer_support': 'Support',
+        'signup_title': 'Sign Up', 'signup_subtitle': 'Fast & Secure.', 'signup_step1': 'Identity', 'signup_first_lbl': 'First Name', 'signup_last_lbl': 'Last Name', 'signup_dob_lbl': 'Birth Date', 'signup_phone_lbl': 'Phone', 'signup_address_lbl': 'Address', 'signup_step2': 'Account', 'signup_country_lbl': 'Country', 'signup_type_lbl': 'Type', 'signup_type_checking': 'Checking', 'signup_type_savings': 'Savings', 'signup_type_business': 'Business', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Password', 'signup_security_note': 'Encrypted data.', 'signup_btn': 'Open Account', 'signup_login_link': 'Login',
+        'login_title': 'Login', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Password', 'login_btn': 'Login', 'login_forgot_link': 'Forgot?', 'login_signup_link': 'Create Account', 'forgot_title': 'Reset', 'forgot_btn': 'Send',
+        'db_btn_admin': 'Admin', 'db_btn_logout': 'Logout', 'db_balance_current': 'Balance', 'db_account_type': 'Account', 'db_ops_title': 'Operations', 'db_ops_subtitle': 'Quick management.', 'db_ops_transfer': 'Internal Transfer', 'db_ops_profile': 'Profile', 'db_action_transfer': 'Transfer', 'db_action_deposit': 'Deposit', 'db_action_history': 'History', 'db_action_support': 'Help', 'db_panel_transfer_title': 'Transfer', 'db_panel_transfer_ph': 'Amount (€)', 'db_panel_transfer_checking': 'To Checking', 'db_panel_transfer_savings': 'To Savings', 'db_panel_transfer_btn': 'Confirm', 'db_panel_transfer_cancel': 'Cancel', 'db_panel_profile_title': 'Profile', 'db_panel_profile_lbl': 'Photo', 'db_panel_profile_btn': 'Save', 'db_panel_profile_back': 'Back', 'db_history_title': 'History',
+        'admin_title': 'Admin', 'admin_create_title': 'New Client', 'admin_first_ph': 'First Name', 'admin_last_ph': 'Last Name', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Init. Balance', 'admin_create_btn': 'Create', 'admin_create_note': 'Temp pass generated.', 'admin_adjust_title': 'Adjust', 'admin_adjust_email_ph': 'Client Email', 'admin_adjust_amount_ph': 'Amount', 'admin_adjust_credit': 'Credit (+)', 'admin_adjust_debit': 'Debit (-)', 'admin_adjust_btn': 'Confirm', 'admin_risk_title': 'Risk / Block', 'admin_risk_subtitle': 'Withdrawal security.', 'admin_risk_percent_lbl': 'Threshold (%)', 'admin_risk_attempts_lbl': 'Max Tries', 'admin_risk_btn': 'Save', 'admin_export_btn': 'Export CSV', 'admin_clients_title': 'Active Clients', 'admin_clients_refresh_btn': 'Refresh', 'admin_clients_note': 'Load list.',
+    },
+    'es': {
+        'agent_title': ' Nuestro Equipo', 'agent_subtitle': 'El lado humano de las finanzas.',
+        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Soporte al Cliente',
+        'agent2_name': 'Marc Leroi', 'agent2_role': 'Experto en Inversiones',
+        'agent3_name': 'Samira Diallo', 'agent3_role': 'Operaciones Internacionales',
+        'nav_home': 'Inicio', 'nav_services': 'Servicios', 'nav_contact': 'Contacto', 'nav_login_btn': 'Área Cliente',
+        'hero_tag': 'Finanzas Digitales', 'hero_title': 'Tu Banca de Nueva Generación.', 'hero_subtitle': 'Gestiona tu dinero fácilmente.', 'hero_btn_open': 'Abrir Cuenta', 'hero_btn_more': 'Saber más',
+        'about_title': 'Nuestra Misión', 'about_subtitle': 'Finanzas accesibles para todos.', 'about_who': '¿Quiénes somos?', 'about_p1': 'Alternativa ágil a la banca tradicional.', 'about_p2': '+50k clientes confían en nosotros.', 'about_btn': 'Productos',
+        'services_title': 'Servicios', 'services_subtitle': 'Todo para tu dinero.', 'service1_title': 'Cuentas', 'service1_p': 'IBAN personal y transferencias rápidas.', 'service2_title': 'Ahorro', 'service2_p': 'Inversiones flexibles.', 'service3_title': 'Tarjetas', 'service3_p': 'Control desde la app.',
+        'loans_title': 'Préstamos', 'loans_subtitle': 'Financiación a medida.', 'loan1_name': 'Hipoteca', 'loan1_p': 'Para tu hogar.', 'loan1_rate': 'Desde 2.5%*', 'loan2_name': 'Consumo', 'loan2_p': 'Coche, viajes.', 'loan2_duration': '1-7 años', 'loan3_name': 'Estudios', 'loan3_p': 'Financia tu futuro.', 'loan3_rate': 'Tasas bajas', 'loans_footer': '*Un crédito debe ser devuelto.', 'loans_btn': 'Solicitar',
+        'testi_title': 'Testimonios', 'testi_subtitle': 'Éxito de clientes.', 'testi1_text': '"Rápido y servicio impecable."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Seguridad total."', 'testi2_author': '— Marc K.',
+        'faq_title': 'FAQ', 'faq_subtitle': 'Preguntas frecuentes.', 'faq1_q': '¿Seguridad?', 'faq1_a': 'Sí, encriptación total.', 'faq2_q': '¿Abrir cuenta?', 'faq2_a': '100% online en 5 min.', 'faq3_q': '¿Comisiones?', 'faq3_a': 'Tasa real + 0.5%.',
+        'contact_title': 'Contacto', 'contact_subtitle': 'Soporte 24/7.', 'contact_direct_title': 'Directo', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Dirección', 'contact_form_title': 'Mensaje', 'contact_form_name_ph': 'Nombre', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Mensaje...', 'contact_form_btn': 'Enviar',
+        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Plataforma demo.', 'footer_legal': 'Legal', 'footer_support': 'Soporte',
+        'signup_title': 'Registro', 'signup_subtitle': 'Rápido y seguro.', 'signup_step1': 'Identidad', 'signup_first_lbl': 'Nombre', 'signup_last_lbl': 'Apellido', 'signup_dob_lbl': 'Fecha Nac.', 'signup_phone_lbl': 'Móvil', 'signup_address_lbl': 'Dirección', 'signup_step2': 'Cuenta', 'signup_country_lbl': 'País', 'signup_type_lbl': 'Tipo', 'signup_type_checking': 'Corriente', 'signup_type_savings': 'Ahorro', 'signup_type_business': 'Empresa', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Contraseña', 'signup_security_note': 'Datos seguros.', 'signup_btn': 'Crear Cuenta', 'signup_login_link': 'Entrar',
+        'login_title': 'Acceso', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Contraseña', 'login_btn': 'Entrar', 'login_forgot_link': '¿Olvidada?', 'login_signup_link': 'Crear cuenta', 'forgot_title': 'Reset', 'forgot_btn': 'Enviar',
+        'db_btn_admin': 'Admin', 'db_btn_logout': 'Salir', 'db_balance_current': 'Saldo', 'db_account_type': 'Cuenta', 'db_ops_title': 'Operaciones', 'db_ops_subtitle': 'Gestión rápida.', 'db_ops_transfer': 'Transferencia', 'db_ops_profile': 'Perfil', 'db_action_transfer': 'Transferir', 'db_action_deposit': 'Ingresar', 'db_action_history': 'Historial', 'db_action_support': 'Ayuda', 'db_panel_transfer_title': 'Transferencia', 'db_panel_transfer_ph': 'Importe (€)', 'db_panel_transfer_checking': 'A Corriente', 'db_panel_transfer_savings': 'A Ahorro', 'db_panel_transfer_btn': 'Confirmar', 'db_panel_transfer_cancel': 'Cancelar', 'db_panel_profile_title': 'Perfil', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Guardar', 'db_panel_profile_back': 'Volver', 'db_history_title': 'Historial',
+        'admin_title': 'Admin', 'admin_create_title': 'Nuevo Cliente', 'admin_first_ph': 'Nombre', 'admin_last_ph': 'Apellido', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Saldo Inic.', 'admin_create_btn': 'Crear', 'admin_create_note': 'Pass temporal.', 'admin_adjust_title': 'Ajuste', 'admin_adjust_email_ph': 'Email Cliente', 'admin_adjust_amount_ph': 'Importe', 'admin_adjust_credit': 'Crédito (+)', 'admin_adjust_debit': 'Débito (-)', 'admin_adjust_btn': 'Validar', 'admin_risk_title': 'Riesgo', 'admin_risk_subtitle': 'Control retiros.', 'admin_risk_percent_lbl': 'Límite (%)', 'admin_risk_attempts_lbl': 'Intentos', 'admin_risk_btn': 'Guardar', 'admin_export_btn': 'Exportar CSV', 'admin_clients_title': 'Clientes', 'admin_clients_refresh_btn': 'Actualizar', 'admin_clients_note': 'Cargar lista.',
+    },
+    'pt': {
+        'agent_title': ' Nossa Equipe', 'agent_subtitle': 'O lado humano das finanças.',
+        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Suporte ao Cliente',
+        'agent2_name': 'Marc Leroi', 'agent2_role': 'Especialista em Investimentos',
+        'agent3_name': 'Samira Diallo', 'agent3_role': 'Operações Internacionais',
+        'nav_home': 'Início', 'nav_services': 'Serviços', 'nav_contact': 'Contato', 'nav_login_btn': 'Área Cliente',
+        'hero_tag': 'Finanças Digitais', 'hero_title': 'Seu Banco de Nova Geração.', 'hero_subtitle': 'Gerencie seu dinheiro facilmente.', 'hero_btn_open': 'Abrir Conta', 'hero_btn_more': 'Saiba mais',
+        'about_title': 'Missão', 'about_subtitle': 'Finanças acessíveis.', 'about_who': 'Quem somos?', 'about_p1': 'Alternativa ágil aos bancos.', 'about_p2': '+50k clientes confiam.', 'about_btn': 'Produtos',
+        'services_title': 'Serviços', 'services_subtitle': 'Tudo para seu dinheiro.', 'service1_title': 'Contas', 'service1_p': 'IBAN e transferências rápidas.', 'service2_title': 'Poupança', 'service2_p': 'Investimentos flexíveis.', 'service3_title': 'Cartões', 'service3_p': 'Controle pelo app.',
+        'loans_title': 'Empréstimos', 'loans_subtitle': 'Financiamento ideal.', 'loan1_name': 'Imobiliário', 'loan1_p': 'Para sua casa.', 'loan1_rate': 'Taxas de 2.5%*', 'loan2_name': 'Consumo', 'loan2_p': 'Carro, obras.', 'loan2_duration': '1-7 anos', 'loan3_name': 'Estudante', 'loan3_p': 'Financie estudos.', 'loan3_rate': 'Taxas baixas', 'loans_footer': '*Crédito deve ser pago.', 'loans_btn': 'Solicitar',
+        'testi_title': 'Depoimentos', 'testi_subtitle': 'Sucesso dos clientes.', 'testi1_text': '"Rápido e serviço impecável."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Segurança total."', 'testi2_author': '— Marc K.',
+        'faq_title': 'FAQ', 'faq_subtitle': 'Perguntas comuns.', 'faq1_q': 'Segurança?', 'faq1_a': 'Sim, criptografia total.', 'faq2_q': 'Abrir conta?', 'faq2_a': '100% online em 5 min.', 'faq3_q': 'Taxas?', 'faq3_a': 'Taxa real + 0.5%.',
+        'contact_title': 'Contato', 'contact_subtitle': 'Suporte 24/7.', 'contact_direct_title': 'Direto', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Endereço', 'contact_form_title': 'Mensagem', 'contact_form_name_ph': 'Nome', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Mensagem...', 'contact_form_btn': 'Enviar',
+        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Plataforma demo.', 'footer_legal': 'Legal', 'footer_support': 'Suporte',
+        'signup_title': 'Cadastro', 'signup_subtitle': 'Rápido e seguro.', 'signup_step1': 'Identidade', 'signup_first_lbl': 'Nome', 'signup_last_lbl': 'Sobrenome', 'signup_dob_lbl': 'Nascimento', 'signup_phone_lbl': 'Celular', 'signup_address_lbl': 'Endereço', 'signup_step2': 'Conta', 'signup_country_lbl': 'País', 'signup_type_lbl': 'Tipo', 'signup_type_checking': 'Corrente', 'signup_type_savings': 'Poupança', 'signup_type_business': 'Empresa', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Senha', 'signup_security_note': 'Dados seguros.', 'signup_btn': 'Criar Conta', 'signup_login_link': 'Entrar',
+        'login_title': 'Acesso', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Senha', 'login_btn': 'Entrar', 'login_forgot_link': 'Esqueceu?', 'login_signup_link': 'Criar conta', 'forgot_title': 'Reset', 'forgot_btn': 'Enviar',
+        'db_btn_admin': 'Admin', 'db_btn_logout': 'Sair', 'db_balance_current': 'Saldo', 'db_account_type': 'Conta', 'db_ops_title': 'Operações', 'db_ops_subtitle': 'Gestão rápida.', 'db_ops_transfer': 'Transferência', 'db_ops_profile': 'Perfil', 'db_action_transfer': 'Transferir', 'db_action_deposit': 'Depositar', 'db_action_history': 'Extrato', 'db_action_support': 'Ajuda', 'db_panel_transfer_title': 'Transferência', 'db_panel_transfer_ph': 'Valor (€)', 'db_panel_transfer_checking': 'P/ Corrente', 'db_panel_transfer_savings': 'P/ Poupança', 'db_panel_transfer_btn': 'Confirmar', 'db_panel_transfer_cancel': 'Cancelar', 'db_panel_profile_title': 'Perfil', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Salvar', 'db_panel_profile_back': 'Voltar', 'db_history_title': 'Histórico',
+        'admin_title': 'Admin', 'admin_create_title': 'Novo Cliente', 'admin_first_ph': 'Nome', 'admin_last_ph': 'Sobrenome', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Saldo Inic.', 'admin_create_btn': 'Criar', 'admin_create_note': 'Senha temp.', 'admin_adjust_title': 'Ajuste', 'admin_adjust_email_ph': 'Email Cliente', 'admin_adjust_amount_ph': 'Valor', 'admin_adjust_credit': 'Crédito (+)', 'admin_adjust_debit': 'Débito (-)', 'admin_adjust_btn': 'Validar', 'admin_risk_title': 'Risco', 'admin_risk_subtitle': 'Controle saques.', 'admin_risk_percent_lbl': 'Limite (%)', 'admin_risk_attempts_lbl': 'Tentativas', 'admin_risk_btn': 'Salvar', 'admin_export_btn': 'Exportar CSV', 'admin_clients_title': 'Clientes', 'admin_clients_refresh_btn': 'Atualizar', 'admin_clients_note': 'Carregar lista.',
+    },
+    'de': {
+        'agent_title': ' Unser Team', 'agent_subtitle': 'Der Mensch im Mittelpunkt.',
+        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Kundensupport',
+        'agent2_name': 'Marc Leroi', 'agent2_role': 'Anlageexperte',
+        'agent3_name': 'Samira Diallo', 'agent3_role': 'Intl. Operationen',
+        'nav_home': 'Startseite', 'nav_services': 'Dienste', 'nav_contact': 'Kontakt', 'nav_login_btn': 'Kundenbereich',
+        'hero_tag': 'Digitale Finanzen', 'hero_title': 'Banking der nächsten Generation.', 'hero_subtitle': 'Verwalten Sie Ihr Geld einfach.', 'hero_btn_open': 'Konto eröffnen', 'hero_btn_more': 'Mehr Infos',
+        'about_title': 'Mission', 'about_subtitle': 'Finanzen für alle.', 'about_who': 'Wer sind wir?', 'about_p1': 'Agile Alternative zu Banken.', 'about_p2': '+50k Kunden vertrauen uns.', 'about_btn': 'Produkte',
+        'services_title': 'Dienste', 'services_subtitle': 'Alles für Ihr Geld.', 'service1_title': 'Konten', 'service1_p': 'IBAN & schnelle Überweisungen.', 'service2_title': 'Sparen', 'service2_p': 'Flexible Anlagen.', 'service3_title': 'Karten', 'service3_p': 'App-Steuerung.',
+        'loans_title': 'Kredite', 'loans_subtitle': 'Finanzierung.', 'loan1_name': 'Hypothek', 'loan1_p': 'Für Ihr Zuhause.', 'loan1_rate': 'Ab 2.5%*', 'loan2_name': 'Privatkredit', 'loan2_p': 'Auto, Reisen.', 'loan2_duration': '1-7 Jahre', 'loan3_name': 'Studium', 'loan3_p': 'Studienfinanzierung.', 'loan3_rate': 'Gute Raten', 'loans_footer': '*Kredit muss zurückgezahlt werden.', 'loans_btn': 'Beantragen',
+        'testi_title': 'Kundenstimmen', 'testi_subtitle': 'Erfolg unserer Kunden.', 'testi1_text': '"Schnell & top Service."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Sicher & günstig."', 'testi2_author': '— Marc K.',
+        'faq_title': 'FAQ', 'faq_subtitle': 'Häufige Fragen.', 'faq1_q': 'Sicherheit?', 'faq1_a': 'Ja, volle Verschlüsselung.', 'faq2_q': 'Konto öffnen?', 'faq2_a': '100% online in 5 Min.', 'faq3_q': 'Gebühren?', 'faq3_a': 'Realkurs + 0.5%.',
+        'contact_title': 'Kontakt', 'contact_subtitle': '24/7 Support.', 'contact_direct_title': 'Direkt', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Adresse', 'contact_form_title': 'Nachricht', 'contact_form_name_ph': 'Name', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Nachricht...', 'contact_form_btn': 'Senden',
+        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Demo-Plattform.', 'footer_legal': 'Rechtliches', 'footer_support': 'Support',
+        'signup_title': 'Registrierung', 'signup_subtitle': 'Schnell & Sicher.', 'signup_step1': 'Identität', 'signup_first_lbl': 'Vorname', 'signup_last_lbl': 'Nachname', 'signup_dob_lbl': 'Geburtsdatum', 'signup_phone_lbl': 'Handy', 'signup_address_lbl': 'Adresse', 'signup_step2': 'Konto', 'signup_country_lbl': 'Land', 'signup_type_lbl': 'Typ', 'signup_type_checking': 'Girokonto', 'signup_type_savings': 'Sparkonto', 'signup_type_business': 'Geschäft', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Passwort', 'signup_security_note': 'Daten verschlüsselt.', 'signup_btn': 'Konto erstellen', 'signup_login_link': 'Login',
+        'login_title': 'Login', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Passwort', 'login_btn': 'Anmelden', 'login_forgot_link': 'Vergessen?', 'login_signup_link': 'Konto erstellen', 'forgot_title': 'Reset', 'forgot_btn': 'Senden',
+        'db_btn_admin': 'Admin', 'db_btn_logout': 'Logout', 'db_balance_current': 'Guthaben', 'db_account_type': 'Konto', 'db_ops_title': 'Operationen', 'db_ops_subtitle': 'Schnellzugriff.', 'db_ops_transfer': 'Überweisung', 'db_ops_profile': 'Profil', 'db_action_transfer': 'Senden', 'db_action_deposit': 'Einzahlen', 'db_action_history': 'Verlauf', 'db_action_support': 'Hilfe', 'db_panel_transfer_title': 'Überweisung', 'db_panel_transfer_ph': 'Betrag (€)', 'db_panel_transfer_checking': 'Auf Giro', 'db_panel_transfer_savings': 'Auf Spar', 'db_panel_transfer_btn': 'Bestätigen', 'db_panel_transfer_cancel': 'Abbrechen', 'db_panel_profile_title': 'Profil', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Speichern', 'db_panel_profile_back': 'Zurück', 'db_history_title': 'Verlauf',
+        'admin_title': 'Admin', 'admin_create_title': 'Neuer Kunde', 'admin_first_ph': 'Vorname', 'admin_last_ph': 'Nachname', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Startguthaben', 'admin_create_btn': 'Erstellen', 'admin_create_note': 'Temp. Passwort.', 'admin_adjust_title': 'Anpassen', 'admin_adjust_email_ph': 'Kunden Email', 'admin_adjust_amount_ph': 'Betrag', 'admin_adjust_credit': 'Haben (+)', 'admin_adjust_debit': 'Soll (-)', 'admin_adjust_btn': 'Validieren', 'admin_risk_title': 'Risiko', 'admin_risk_subtitle': 'Auszahlungskontrolle.', 'admin_risk_percent_lbl': 'Limit (%)', 'admin_risk_attempts_lbl': 'Versuche', 'admin_risk_btn': 'Speichern', 'admin_export_btn': 'CSV Export', 'admin_clients_title': 'Kunden', 'admin_clients_refresh_btn': 'Aktualisieren', 'admin_clients_note': 'Liste laden.',
+    },
+    'it': {
+        'agent_title': ' Il Nostro Team', 'agent_subtitle': 'Il lato umano della finanza.',
+        'agent1_name': 'Priscille Dubois', 'agent1_role': 'Supporto Clienti',
+        'agent2_name': 'Marc Leroi', 'agent2_role': 'Esperto Investimenti',
+        'agent3_name': 'Samira Diallo', 'agent3_role': 'Operazioni Internazionali',
+        'nav_home': 'Home', 'nav_services': 'Servizi', 'nav_contact': 'Contatti', 'nav_login_btn': 'Area Clienti',
+        'hero_tag': 'Finanza Digitale', 'hero_title': 'La Tua Banca di Nuova Generazione.', 'hero_subtitle': 'Gestisci il denaro facilmente.', 'hero_btn_open': 'Apri Conto', 'hero_btn_more': 'Scopri di più',
+        'about_title': 'Missione', 'about_subtitle': 'Finanza accessibile.', 'about_who': 'Chi siamo?', 'about_p1': 'Alternativa agile alle banche.', 'about_p2': '+50k clienti si fidano.', 'about_btn': 'Prodotti',
+        'services_title': 'Servizi', 'services_subtitle': 'Tutto per il tuo denaro.', 'service1_title': 'Conti', 'service1_p': 'IBAN e bonifici rapidi.', 'service2_title': 'Risparmio', 'service2_p': 'Investimenti flessibili.', 'service3_title': 'Carte', 'service3_p': 'Controllo via app.',
+        'loans_title': 'Prestiti', 'loans_subtitle': 'Finanziamenti su misura.', 'loan1_name': 'Mutuo', 'loan1_p': 'Per la tua casa.', 'loan1_rate': 'Da 2.5%*', 'loan2_name': 'Personale', 'loan2_p': 'Auto, viaggi.', 'loan2_duration': '1-7 anni', 'loan3_name': 'Studenti', 'loan3_p': 'Finanzia gli studi.', 'loan3_rate': 'Tassi bassi', 'loans_footer': '*Il credito va rimborsato.', 'loans_btn': 'Richiedi',
+        'testi_title': 'Testimonianze', 'testi_subtitle': 'Clienti soddisfatti.', 'testi1_text': '"Veloce e servizio top."', 'testi1_author': '— Sophie L.', 'testi2_text': '"Sicurezza totale."', 'testi2_author': '— Marc K.',
+        'faq_title': 'FAQ', 'faq_subtitle': 'Domande frequenti.', 'faq1_q': 'Sicurezza?', 'faq1_a': 'Sì, crittografia totale.', 'faq2_q': 'Aprire conto?', 'faq2_a': '100% online in 5 min.', 'faq3_q': 'Commissioni?', 'faq3_a': 'Tasso reale + 0.5%.',
+        'contact_title': 'Contatti', 'contact_subtitle': 'Supporto 24/7.', 'contact_direct_title': 'Diretto', 'contact_email': 'Email', 'contact_phone': 'Tel', 'contact_address': 'Indirizzo', 'contact_form_title': 'Messaggio', 'contact_form_name_ph': 'Nome', 'contact_form_email_ph': 'Email', 'contact_form_msg_ph': 'Messaggio...', 'contact_form_btn': 'Invia',
+        'footer_copyright': '© 2025 Nexus Groups.', 'footer_note': 'Piattaforma demo.', 'footer_legal': 'Legale', 'footer_support': 'Supporto',
+        'signup_title': 'Registrazione', 'signup_subtitle': 'Veloce e Sicuro.', 'signup_step1': 'Identità', 'signup_first_lbl': 'Nome', 'signup_last_lbl': 'Cognome', 'signup_dob_lbl': 'Data Nascita', 'signup_phone_lbl': 'Cellulare', 'signup_address_lbl': 'Indirizzo', 'signup_step2': 'Conto', 'signup_country_lbl': 'Paese', 'signup_type_lbl': 'Tipo', 'signup_type_checking': 'Corrente', 'signup_type_savings': 'Risparmio', 'signup_type_business': 'Business', 'signup_email_lbl': 'Email', 'signup_pass_lbl': 'Password', 'signup_security_note': 'Dati sicuri.', 'signup_btn': 'Crea Conto', 'signup_login_link': 'Accedi',
+        'login_title': 'Accesso', 'login_email_lbl': 'Email', 'login_pass_lbl': 'Password', 'login_btn': 'Accedi', 'login_forgot_link': 'Password persa?', 'login_signup_link': 'Crea conto', 'forgot_title': 'Reset', 'forgot_btn': 'Invia',
+        'db_btn_admin': 'Admin', 'db_btn_logout': 'Esci', 'db_balance_current': 'Saldo', 'db_account_type': 'Conto', 'db_ops_title': 'Operazioni', 'db_ops_subtitle': 'Gestione rapida.', 'db_ops_transfer': 'Bonifico', 'db_ops_profile': 'Profilo', 'db_action_transfer': 'Invia', 'db_action_deposit': 'Deposita', 'db_action_history': 'Storico', 'db_action_support': 'Aiuto', 'db_panel_transfer_title': 'Bonifico', 'db_panel_transfer_ph': 'Importo (€)', 'db_panel_transfer_checking': 'A Corrente', 'db_panel_transfer_savings': 'A Risparmio', 'db_panel_transfer_btn': 'Conferma', 'db_panel_transfer_cancel': 'Annulla', 'db_panel_profile_title': 'Profilo', 'db_panel_profile_lbl': 'Foto', 'db_panel_profile_btn': 'Salva', 'db_panel_profile_back': 'Indietro', 'db_history_title': 'Storico',
+        'admin_title': 'Admin', 'admin_create_title': 'Nuovo Cliente', 'admin_first_ph': 'Nome', 'admin_last_ph': 'Cognome', 'admin_email_ph': 'Email', 'admin_balance_lbl': 'Saldo Iniz.', 'admin_create_btn': 'Crea', 'admin_create_note': 'Pass temp.', 'admin_adjust_title': 'Rettifica', 'admin_adjust_email_ph': 'Email Cliente', 'admin_adjust_amount_ph': 'Importo', 'admin_adjust_credit': 'Accredito (+)', 'admin_adjust_debit': 'Addebito (-)', 'admin_adjust_btn': 'Conferma', 'admin_risk_title': 'Rischio', 'admin_risk_subtitle': 'Controllo prelievi.', 'admin_risk_percent_lbl': 'Soglia (%)', 'admin_risk_attempts_lbl': 'Tentativi', 'admin_risk_btn': 'Salva', 'admin_export_btn': 'Export CSV', 'admin_clients_title': 'Clienti', 'admin_clients_refresh_btn': 'Aggiorna', 'admin_clients_note': 'Carica lista.',
+    }
+};
+
 let currentLang = localStorage.getItem('lang') || 'fr';
-function updateTextContent(key, content) {    const el = document.querySelector(`[data-key="${key}"]`);    if (el) el.innerHTML = content;}
-function updatePlaceholder(key, content) {    const el = document.querySelector(`[data-key="${key}"]`);    if (el && el.placeholder !== undefined) el.placeholder = content;}
-function applyTranslations(lang) {    const texts = translations[lang];    if (!texts) return;
-    for (const key in texts) {        updateTextContent(key, texts[key]);        updatePlaceholder(key, texts[key]);    }        const typeSel = document.querySelector('#su_type');    if(typeSel) {        typeSel.querySelector('option[value="Checking"]').textContent = texts['signup_type_checking'];        typeSel.querySelector('option[value="Savings"]').textContent = texts['signup_type_savings'];        typeSel.querySelector('option[value="Business"]').textContent = texts['signup_type_business'];    }    const adminTypeSel = document.querySelector('#admin_type');    if(adminTypeSel) {        adminTypeSel.querySelector('option[value="credit"]').textContent = texts['admin_adjust_credit'];        adminTypeSel.querySelector('option[value="debit"]').textContent = texts['admin_adjust_debit'];    }
-    document.getElementById('lang-selector').value = lang;    currentLang = lang;}
-function setLanguage(lang) {    localStorage.setItem('lang', lang);    applyTranslations(lang);}
-document.addEventListener('DOMContentLoaded', () => {    // Injection automatique des langues dans le sélecteur    const langSelect = document.getElementById('lang-selector');    if(langSelect) {        langSelect.innerHTML = ''; // Nettoyer        const langNames = { 'fr': ' Français', 'en': ' English', 'es': ' Español', 'pt': ' Português', 'de': ' Deutsch', 'it': ' Italiano' };        for (const k in translations) {            const opt = document.createElement('option');            opt.value = k;            opt.textContent = langNames[k] || k.toUpperCase();            langSelect.appendChild(opt);        }        langSelect.value = currentLang;    }        applyTranslations(currentLang);    setupSlideshow();});
-function toggleAccordion(header) {    const item = header.parentElement;    const content = item.querySelector('.accordion-content');    document.querySelectorAll('.accordion-item.active').forEach(openItem => {        if (openItem !== item) {            openItem.classList.remove('active');            openItem.querySelector('.accordion-content').style.maxHeight = 0;        }    });    if (item.classList.contains('active')) {        item.classList.remove('active');        content.style.maxHeight = 0;    } else {        item.classList.add('active');        content.style.maxHeight = content.scrollHeight + "px";    }}/* CONFIGURATION BACKENDLESS */const APP_ID = "708AEEC7-CF2C-46F6-AF2C-91A962AB22E3"; const JS_API_KEY = "866641ED-8D2F-4EE4-A576-9539573ADDD9"; const ADMIN_EMAIL = "pretalicialopez@gmail.com";const TEMP_PASSWORD = "TempPass123!"; 
+
+function updateTextContent(key, content) {
+    const el = document.querySelector(`[data-key="${key}"]`);
+    if (el) el.innerHTML = content;
+}
+
+function updatePlaceholder(key, content) {
+    const el = document.querySelector(`[data-key="${key}"]`);
+    if (el && el.placeholder !== undefined) el.placeholder = content;
+}
+
+function applyTranslations(lang) {
+    const texts = translations[lang];
+    if (!texts) return;
+
+    for (const key in texts) {
+        updateTextContent(key, texts[key]);
+        updatePlaceholder(key, texts[key]);
+    }
+    
+    const typeSel = document.querySelector('#su_type');
+    if(typeSel) {
+        typeSel.querySelector('option[value="Checking"]').textContent = texts['signup_type_checking'];
+        typeSel.querySelector('option[value="Savings"]').textContent = texts['signup_type_savings'];
+        typeSel.querySelector('option[value="Business"]').textContent = texts['signup_type_business'];
+    }
+    const adminTypeSel = document.querySelector('#admin_type');
+    if(adminTypeSel) {
+        adminTypeSel.querySelector('option[value="credit"]').textContent = texts['admin_adjust_credit'];
+        adminTypeSel.querySelector('option[value="debit"]').textContent = texts['admin_adjust_debit'];
+    }
+
+    document.getElementById('lang-selector').value = lang;
+    currentLang = lang;
+}
+
+function setLanguage(lang) {
+    localStorage.setItem('lang', lang);
+    applyTranslations(lang);
+}
+
+document.addEventListener('DOMContentLoaded', () => {
+    // Injection automatique des langues dans le sélecteur
+    const langSelect = document.getElementById('lang-selector');
+    if(langSelect) {
+        langSelect.innerHTML = ''; // Nettoyer
+        const langNames = { 'fr': ' Français', 'en': ' English', 'es': ' Español', 'pt': ' Português', 'de': ' Deutsch', 'it': ' Italiano' };
+        for (const k in translations) {
+            const opt = document.createElement('option');
+            opt.value = k;
+            opt.textContent = langNames[k] || k.toUpperCase();
+            langSelect.appendChild(opt);
+        }
+        langSelect.value = currentLang;
+    }
+    
+    applyTranslations(currentLang);
+    setupSlideshow();
+});
+
+function toggleAccordion(header) {
+    const item = header.parentElement;
+    const content = item.querySelector('.accordion-content');
+    document.querySelectorAll('.accordion-item.active').forEach(openItem => {
+        if (openItem !== item) {
+            openItem.classList.remove('active');
+            openItem.querySelector('.accordion-content').style.maxHeight = 0;
+        }
+    });
+    if (item.classList.contains('active')) {
+        item.classList.remove('active');
+        content.style.maxHeight = 0;
+    } else {
+        item.classList.add('active');
+        content.style.maxHeight = content.scrollHeight + "px";
+    }
+}/* CONFIGURATION BACKENDLESS */
+const APP_ID = "708AEEC7-CF2C-46F6-AF2C-91A962AB22E3"; 
+const JS_API_KEY = "866641ED-8D2F-4EE4-A576-9539573ADDD9"; 
+const ADMIN_EMAIL = "pretalicialopez@gmail.com";
+const TEMP_PASSWORD = "TempPass123!"; 
+
 Backendless.initApp(APP_ID, JS_API_KEY);
+
 /* --- LOGIC GENERALE --- */
-function navigate(pageId){  const pages = ['home','services','signup','login','forgot','dashboard','admin'];  pages.forEach(p => { const el = document.getElementById(p); if(el) el.style.display = 'none'; });  const target = document.getElementById(pageId); if(target) target.style.display = 'block';  window.scrollTo(0,0);}
-// Fonction pour cacher les panneaux secondairesfunction hidePanels() {    const p1 = document.getElementById('transfer_panel');    const p2 = document.getElementById('profile_panel');    if(p1) p1.style.display = 'none';     if(p2) p2.style.display = 'none';}
+
+function navigate(pageId){
+  const pages = ['home','services','signup','login','forgot','dashboard','admin'];
+  pages.forEach(p => { const el = document.getElementById(p); if(el) el.style.display = 'none'; });
+  const target = document.getElementById(pageId); if(target) target.style.display = 'block';
+  window.scrollTo(0,0);
+}
+
+// Fonction pour cacher les panneaux secondaires
+function hidePanels() {
+    const p1 = document.getElementById('transfer_panel');
+    const p2 = document.getElementById('profile_panel');
+    if(p1) p1.style.display = 'none'; 
+    if(p2) p2.style.display = 'none';
+}
+
 /* --- LOGIC AUTH & USER --- */
-async function registerUser(){  const first = document.getElementById('su_first').value;  const last = document.getElementById('su_last').value;  const email = document.getElementById('su_email').value;  const pass = document.getElementById('su_pass').value;  const phone = document.getElementById('su_phone').value;  const address = document.getElementById('su_address').value;  const country = document.getElementById('su_country').value;  const type = document.getElementById('su_type').value;  const msg = document.getElementById('su_msg');    // Fallback si la traduction manque  const texts = translations[currentLang] || translations['fr'];    if(!first || !last || !email || !pass) { msg.textContent = "Champs obligatoires manquants (*)"; msg.style.color = "var(--danger)"; return; }    msg.textContent = "Traitement / Processing...";  msg.style.color = "var(--accent-blue)";    try {    const user = {         email,         password: pass,         name: first + ' ' + last,         firstname: first,        lastname: last,        phone: phone,        address: address,        country: country,        accountType: type,        balance: 500.00, // Solde de bienvenue        transferFailures: 0,         isBlocked: false         };        await Backendless.UserService.register(user);    await Backendless.UserService.login(email, pass, true);    loadDashboard();  } catch(e) { msg.textContent = "Error: " + e.message; msg.style.color = "var(--danger)"; }}
-async function loginUser(){  const email = document.getElementById('li_email').value;  const pass = document.getElementById('li_pass').value;  const msg = document.getElementById('li_msg');
-  try {     await Backendless.UserService.login(email, pass, true);     loadDashboard();   } catch(e) {     msg.textContent = "Error: " + e.message;     msg.style.color = "var(--danger)";  }}
-async function sendPasswordReset(){    const email = document.getElementById('fp_email').value;    try{         await Backendless.UserService.restorePassword(email);         document.getElementById('fp_msg').textContent = "Email sent / envoyé.";         document.getElementById('fp_msg').style.color = "var(--success)";    }catch(e){        document.getElementById('fp_msg').textContent = "Error: " + e.message;        document.getElementById('fp_msg').style.color = "var(--danger)";    }}
+
+async function registerUser(){
+  const first = document.getElementById('su_first').value;
+  const last = document.getElementById('su_last').value;
+  const email = document.getElementById('su_email').value;
+  const pass = document.getElementById('su_pass').value;
+  const phone = document.getElementById('su_phone').value;
+  const address = document.getElementById('su_address').value;
+  const country = document.getElementById('su_country').value;
+  const type = document.getElementById('su_type').value;
+  const msg = document.getElementById('su_msg');
+  
+  // Fallback si la traduction manque
+  const texts = translations[currentLang] || translations['fr'];
+  
+  if(!first || !last || !email || !pass) { msg.textContent = "Champs obligatoires manquants (*)"; msg.style.color = "var(--danger)"; return; }
+  
+  msg.textContent = "Traitement / Processing...";
+  msg.style.color = "var(--accent-blue)";
+  
+  try {
+    const user = { 
+        email, 
+        password: pass, 
+        name: first + ' ' + last, 
+        firstname: first,
+        lastname: last,
+        phone: phone,
+        address: address,
+        country: country,
+        accountType: type,
+        balance: 500.00, // Solde de bienvenue
+        transferFailures: 0, 
+        isBlocked: false     
+    };
+    
+    await Backendless.UserService.register(user);
+    await Backendless.UserService.login(email, pass, true);
+    loadDashboard();
+  } catch(e) { msg.textContent = "Error: " + e.message; msg.style.color = "var(--danger)"; }
+}
+
+async function loginUser(){
+  const email = document.getElementById('li_email').value;
+  const pass = document.getElementById('li_pass').value;
+  const msg = document.getElementById('li_msg');
+
+  try { 
+    await Backendless.UserService.login(email, pass, true); 
+    loadDashboard(); 
+  } catch(e) { 
+    msg.textContent = "Error: " + e.message; 
+    msg.style.color = "var(--danger)";
+  }
+}
+
+async function sendPasswordReset(){
+    const email = document.getElementById('fp_email').value;
+    try{ 
+        await Backendless.UserService.restorePassword(email); 
+        document.getElementById('fp_msg').textContent = "Email sent / envoyé."; 
+        document.getElementById('fp_msg').style.color = "var(--success)";
+    }catch(e){
+        document.getElementById('fp_msg').textContent = "Error: " + e.message;
+        document.getElementById('fp_msg').style.color = "var(--danger)";
+    }
+}
+
 async function logout(){ await Backendless.UserService.logout(); navigate('home'); }
+
 /* --- LOGIC DASHBOARD --- */
-async function loadDashboard(){  navigate('dashboard');  try {    const user = await Backendless.UserService.getCurrentUser();    if(!user) return;        document.getElementById('db_name').textContent = user.name || "Client";    document.getElementById('db_email').textContent = user.email;    document.getElementById('db_type').textContent = user.accountType || "Standard";
-    const balanceEl = document.getElementById('db_balance');    const texts = translations[currentLang] || translations['fr'];        hidePanels();
-    if (user.isBlocked) {        balanceEl.textContent = "BLOQUÉ / BLOCKED";        balanceEl.parentElement.style.background = 'linear-gradient(135deg, var(--danger) 0%, #cc3333 100%)';     } else {        balanceEl.textContent = (user.balance || 0).toFixed(2);        balanceEl.parentElement.style.background = 'linear-gradient(135deg, var(--accent-blue) 0%, #0096C7 100%)';     }
-    if(user.avatarUrl) {         document.getElementById('avatar').src = user.avatarUrl;         document.getElementById('avatar').style.display = 'block';     } else {        document.getElementById('avatar').src = 'https://picsum.photos/50/50';         document.getElementById('avatar').style.display = 'block';     }        // ADMIN CHECK    if(user.email && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) {         document.getElementById('btn_admin').style.display = 'inline-block';         const settings = await getRiskSettings();        if(document.getElementById('block_percent')) document.getElementById('block_percent').value = settings.percent;        if(document.getElementById('block_attempts')) document.getElementById('block_attempts').value = settings.attempts;    } else {        document.getElementById('btn_admin').style.display = 'none';    }        loadTransactions(user.email);  } catch(e) { console.error("Erreur Dashboard:", e); }}
-async function loadTransactions(email){  const listEl = document.getElementById('tx_list');  const texts = translations[currentLang] || translations['fr'];  listEl.innerHTML = `<div style='text-align:center; padding:20px; color:var(--text-muted);'>Loading...</div>`;    try {    const where = `userEmail = '${email}'`;    const list = await Backendless.Data.of('Transactions').find({ whereClause: where, sortBy: "date DESC", pageSize: 20 });        if(!list.length) { listEl.innerHTML = `<div style='text-align:center; padding:20px; color:var(--text-muted);'>No transactions.</div>`; return; }        let html = '';        list.forEach(t => {        const amountDisplay = t.amount.toFixed(2) + ' €';        let amountStyle = '';        let iconClass = '';        let note = t.note || t.type;                if (t.type.toUpperCase().includes('CREDIT') || t.type.toUpperCase().includes('IN')) {            amountStyle = 'color:var(--success); font-weight:bold;';            iconClass = 'fa-solid fa-arrow-down';        } else if (t.type.toUpperCase().includes('DEBIT') || t.type.toUpperCase().includes('OUT')) {            amountStyle = 'color:var(--text-main); font-weight:bold;';            iconClass = 'fa-solid fa-arrow-up';        } else if (t.type.toUpperCase().includes('TRANSFER')) {            amountStyle = 'color:var(--text-main); font-weight:bold;';            iconClass = 'fa-solid fa-right-left';        } else {             iconClass = 'fa-solid fa-tag';        }
-        html += `            <div class="transaction-item" style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:1px solid #eee;">                <div style="display:flex; align-items:center;">                    <div style="width:40px; height:40px; background:#f3f4f6; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-right:15px; color:var(--accent-blue);"><i class="${iconClass}"></i></div>                    <div class="tx-details">                        <div style="font-weight:600; color:var(--text-main);">${note}</div>                        <div class="small" style="color:var(--text-muted);">${new Date(t.date).toLocaleDateString()}</div>                    </div>                </div>                <div class="tx-amount" style="${amountStyle}">${amountDisplay}</div>            </div>        `;    });        listEl.innerHTML = html;  } catch(e) { listEl.innerHTML = `<div style='text-align:center; padding:20px; color:var(--danger);'>Error loading history.</div>`; }}
 
-function showTransferPanel() {    document.getElementById('transfer_panel').style.display = 'block';    document.getElementById('profile_panel').style.display = 'none';}
+async function loadDashboard(){
+  navigate('dashboard');
+  try {
+    const user = await Backendless.UserService.getCurrentUser();
+    if(!user) return;
+    
+    document.getElementById('db_name').textContent = user.name || "Client";
+    document.getElementById('db_email').textContent = user.email;
+    document.getElementById('db_type').textContent = user.accountType || "Standard";
 
-async function getRiskSettings() {    try {        const settings = await Backendless.Data.of('RiskSettings').findFirst();        return settings || { percent: 50, attempts: 3 };     } catch (e) {        return { percent: 50, attempts: 3 };     }}
-async function processInternalTransfer() {    const amount = Number(document.getElementById('transfer_amount').value);    const target = document.getElementById('transfer_target').value;    const msg = document.getElementById('transfer_msg');    const texts = translations[currentLang] || translations['fr'];        if (isNaN(amount) || amount <= 0) { msg.textContent = "Invalid amount."; msg.style.color = "var(--danger)"; return; }        msg.textContent = "Verifying...";    msg.style.color = "var(--accent-blue)";        try {        const user = await Backendless.UserService.getCurrentUser();        if(user.isBlocked) { msg.textContent = "Account Blocked."; msg.style.color = "var(--danger)"; return; }        const currentBalance = user.balance || 0;                if (amount > currentBalance) { msg.textContent = "Insufficient funds."; msg.style.color = "var(--danger)"; return; }
-        // VÉRIFICATION DU SEUIL DE RISQUE        const riskSettings = await getRiskSettings();         const blockPercent = riskSettings.percent || 50;        const blockAttempts = riskSettings.attempts || 3;
-        if (amount > currentBalance * (blockPercent / 100)) {            let failCount = (user.transferFailures || 0) + 1;            user.transferFailures = failCount;                        if (failCount >= blockAttempts) {                user.isBlocked = true;                msg.textContent = `Security Alert: Account blocked after ${blockAttempts} attempts.`;            } else {                msg.textContent = `Transfer Failed: Amount too high (> ${blockPercent}%). Warning ${failCount}/${blockAttempts}.`;            }            msg.style.color = "var(--danger)";            await Backendless.UserService.update(user);             loadDashboard();            return;         }                // SUCCÈS        user.transferFailures = 0;         await Backendless.UserService.update(user);                // Enregistrement transaction (simulation, solde inchangé pour la démo sauf si ajusté par admin)        // Note: Dans une vraie app, on déduirait le solde ici.                await Backendless.Data.of('Transactions').save({ userEmail: user.email, type: 'TRANSFER_OUT', amount: amount, date: new Date(), note: `Virement vers ${target}` });        await Backendless.Data.of('Transactions').save({ userEmail: user.email, type: 'TRANSFER_IN', amount: amount, date: new Date(), note: `Dépôt sur ${target}` });                msg.textContent = "Transfer successful.";        msg.style.color = "var(--success)";
+    const balanceEl = document.getElementById('db_balance');
+    const texts = translations[currentLang] || translations['fr'];
+    
+    hidePanels();
+
+    if (user.isBlocked) {
+        balanceEl.textContent = "BLOQUÉ / BLOCKED";
+        balanceEl.parentElement.style.background = 'linear-gradient(135deg, var(--danger) 0%, #cc3333 100%)'; 
+    } else {
+        balanceEl.textContent = (user.balance || 0).toFixed(2);
+        balanceEl.parentElement.style.background = 'linear-gradient(135deg, var(--accent-blue) 0%, #0096C7 100%)'; 
+    }
+
+    if(user.avatarUrl) { 
+        document.getElementById('avatar').src = user.avatarUrl; 
+        document.getElementById('avatar').style.display = 'block'; 
+    } else {
+        document.getElementById('avatar').src = 'https://picsum.photos/50/50'; 
+        document.getElementById('avatar').style.display = 'block'; 
+    }
+    
+    // ADMIN CHECK
+    if(user.email && user.email.toLowerCase() === ADMIN_EMAIL.toLowerCase()) { 
+        document.getElementById('btn_admin').style.display = 'inline-block'; 
+        const settings = await getRiskSettings();
+        if(document.getElementById('block_percent')) document.getElementById('block_percent').value = settings.percent;
+        if(document.getElementById('block_attempts')) document.getElementById('block_attempts').value = settings.attempts;
+    } else {
+        document.getElementById('btn_admin').style.display = 'none';
+    }
+    
+    loadTransactions(user.email);
+  } catch(e) { console.error("Erreur Dashboard:", e); }
+}
+
+async function loadTransactions(email){
+  const listEl = document.getElementById('tx_list');
+  const texts = translations[currentLang] || translations['fr'];
+  listEl.innerHTML = `<div style='text-align:center; padding:20px; color:var(--text-muted);'>Loading...</div>`;
+  
+  try {
+    const where = `userEmail = '${email}'`;
+    const list = await Backendless.Data.of('Transactions').find({ whereClause: where, sortBy: "date DESC", pageSize: 20 });
+    
+    if(!list.length) { listEl.innerHTML = `<div style='text-align:center; padding:20px; color:var(--text-muted);'>No transactions.</div>`; return; }
+    
+    let html = '';
+    
+    list.forEach(t => {
+        const amountDisplay = t.amount.toFixed(2) + ' €';
+        let amountStyle = '';
+        let iconClass = '';
+        let note = t.note || t.type;
+        
+        if (t.type.toUpperCase().includes('CREDIT') || t.type.toUpperCase().includes('IN')) {
+            amountStyle = 'color:var(--success); font-weight:bold;';
+            iconClass = 'fa-solid fa-arrow-down';
+        } else if (t.type.toUpperCase().includes('DEBIT') || t.type.toUpperCase().includes('OUT')) {
+            amountStyle = 'color:var(--text-main); font-weight:bold;';
+            iconClass = 'fa-solid fa-arrow-up';
+        } else if (t.type.toUpperCase().includes('TRANSFER')) {
+            amountStyle = 'color:var(--text-main); font-weight:bold;';
+            iconClass = 'fa-solid fa-right-left';
+        } else {
+             iconClass = 'fa-solid fa-tag';
+        }
+
+        html += `
+            <div class="transaction-item" style="display:flex; justify-content:space-between; align-items:center; padding:15px 0; border-bottom:1px solid #eee;">
+                <div style="display:flex; align-items:center;">
+                    <div style="width:40px; height:40px; background:#f3f4f6; border-radius:50%; display:flex; align-items:center; justify-content:center; margin-right:15px; color:var(--accent-blue);"><i class="${iconClass}"></i></div>
+                    <div class="tx-details">
+                        <div style="font-weight:600; color:var(--text-main);">${note}</div>
+                        <div class="small" style="color:var(--text-muted);">${new Date(t.date).toLocaleDateString()}</div>
+                    </div>
+                </div>
+                <div class="tx-amount" style="${amountStyle}">${amountDisplay}</div>
+            </div>
+        `;
+    });
+    
+    listEl.innerHTML = html;
+  } catch(e) { listEl.innerHTML = `<div style='text-align:center; padding:20px; color:var(--danger);'>Error loading history.</div>`; }
+}
+
+
+function showTransferPanel() {
+    document.getElementById('transfer_panel').style.display = 'block';
+    document.getElementById('profile_panel').style.display = 'none';
+}
+
+
+async function getRiskSettings() {
+    try {
+        const settings = await Backendless.Data.of('RiskSettings').findFirst();
+        return settings || { percent: 50, attempts: 3 }; 
+    } catch (e) {
+        return { percent: 50, attempts: 3 }; 
+    }
+}
+
+async function processInternalTransfer() {
+    const amount = Number(document.getElementById('transfer_amount').value);
+    const target = document.getElementById('transfer_target').value;
+    const msg = document.getElementById('transfer_msg');
+    const texts = translations[currentLang] || translations['fr'];
+    
+    if (isNaN(amount) || amount <= 0) { msg.textContent = "Invalid amount."; msg.style.color = "var(--danger)"; return; }
+    
+    msg.textContent = "Verifying...";
+    msg.style.color = "var(--accent-blue)";
+    
+    try {
+        const user = await Backendless.UserService.getCurrentUser();
+        if(user.isBlocked) { msg.textContent = "Account Blocked."; msg.style.color = "var(--danger)"; return; }
+        const currentBalance = user.balance || 0;
+        
+        if (amount > currentBalance) { msg.textContent = "Insufficient funds."; msg.style.color = "var(--danger)"; return; }
+
+        // VÉRIFICATION DU SEUIL DE RISQUE
+        const riskSettings = await getRiskSettings(); 
+        const blockPercent = riskSettings.percent || 50;
+        const blockAttempts = riskSettings.attempts || 3;
+
+        if (amount > currentBalance * (blockPercent / 100)) {
+            let failCount = (user.transferFailures || 0) + 1;
+            user.transferFailures = failCount;
+            
+            if (failCount >= blockAttempts) {
+                user.isBlocked = true;
+                msg.textContent = `Security Alert: Account blocked after ${blockAttempts} attempts.`;
+            } else {
+                msg.textContent = `Transfer Failed: Amount too high (> ${blockPercent}%). Warning ${failCount}/${blockAttempts}.`;
+            }
+            msg.style.color = "var(--danger)";
+            await Backendless.UserService.update(user); 
+            loadDashboard();
+            return; 
+        }
+        
+        // SUCCÈS
+        user.transferFailures = 0; 
+        await Backendless.UserService.update(user);
+        
+        // Enregistrement transaction (simulation, solde inchangé pour la démo sauf si ajusté par admin)
+        // Note: Dans une vraie app, on déduirait le solde ici.
+        
+        await Backendless.Data.of('Transactions').save({ userEmail: user.email, type: 'TRANSFER_OUT', amount: amount, date: new Date(), note: `Virement vers ${target}` });
+        await Backendless.Data.of('Transactions').save({ userEmail: user.email, type: 'TRANSFER_IN', amount: amount, date: new Date(), note: `Dépôt sur ${target}` });
+        
+        msg.textContent = "Transfer successful.";
+        msg.style.color = "var(--success)";
+
         loadTransactions(user.email); 
-    } catch(e) {         msg.textContent = "Error: " + e.message;         msg.style.color = "var(--danger)";    }}
-async function uploadAvatar(){  const file = document.getElementById('avatar_file').files[0];  if(!file) return;  try {    const res = await Backendless.Files.upload(file, 'avatars');    const user = await Backendless.UserService.getCurrentUser();    user.avatarUrl = res.fileURL;    await Backendless.UserService.update(user);    document.getElementById('avatar').src = res.fileURL;     alert("Avatar updated!");  } catch(e) { alert("Error: " + e.message); }}
+
+    } catch(e) { 
+        msg.textContent = "Error: " + e.message; 
+        msg.style.color = "var(--danger)";
+    }
+}
+
+async function uploadAvatar(){
+  const file = document.getElementById('avatar_file').files[0];
+  if(!file) return;
+  try {
+    const res = await Backendless.Files.upload(file, 'avatars');
+    const user = await Backendless.UserService.getCurrentUser();
+    user.avatarUrl = res.fileURL;
+    await Backendless.UserService.update(user);
+    document.getElementById('avatar').src = res.fileURL; 
+    alert("Avatar updated!");
+  } catch(e) { alert("Error: " + e.message); }
+}
+
 /* --- LOGIC ADMIN --- */
-async function saveRiskSettings() {    const percent = Number(document.getElementById('block_percent').value);    const attempts = Number(document.getElementById('block_attempts').value);    const msg = document.getElementById('risk_msg');
-    try {        let settings = await Backendless.Data.of('RiskSettings').findFirst();        if (!settings) { settings = { percent: percent, attempts: attempts }; } else { settings.percent = percent; settings.attempts = attempts; }        await Backendless.Data.of('RiskSettings').save(settings);        msg.textContent = "Saved."; msg.style.color = "var(--success)";    } catch (e) {        msg.textContent = "Error: " + e.message; msg.style.color = "var(--danger)";    }}
-async function adminCreateUser() {    const first = document.getElementById('admin_new_first').value;    const last = document.getElementById('admin_new_last').value;    const email = document.getElementById('admin_new_email').value;    const balance = Number(document.getElementById('admin_new_balance').value);    const msg = document.getElementById('admin_create_msg');        if (!email || !first || !last || isNaN(balance)) { msg.textContent = "Invalid fields."; return; }
+
+async function saveRiskSettings() {
+    const percent = Number(document.getElementById('block_percent').value);
+    const attempts = Number(document.getElementById('block_attempts').value);
+    const msg = document.getElementById('risk_msg');
+
+    try {
+        let settings = await Backendless.Data.of('RiskSettings').findFirst();
+        if (!settings) { settings = { percent: percent, attempts: attempts }; } else { settings.percent = percent; settings.attempts = attempts; }
+        await Backendless.Data.of('RiskSettings').save(settings);
+        msg.textContent = "Saved."; msg.style.color = "var(--success)";
+    } catch (e) {
+        msg.textContent = "Error: " + e.message; msg.style.color = "var(--danger)";
+    }
+}
+
+async function adminCreateUser() {
+    const first = document.getElementById('admin_new_first').value;
+    const last = document.getElementById('admin_new_last').value;
+    const email = document.getElementById('admin_new_email').value;
+    const balance = Number(document.getElementById('admin_new_balance').value);
+    const msg = document.getElementById('admin_create_msg');
+    
+    if (!email || !first || !last || isNaN(balance)) { msg.textContent = "Invalid fields."; return; }
+
     const newUser = { email: email, password: TEMP_PASSWORD, name: first + ' ' + last, firstname: first, lastname: last, balance: balance, accountType: 'Checking', transferFailures: 0, isBlocked: false };
-    try {        msg.textContent = "Creating...";        await Backendless.UserService.register(newUser);        msg.textContent = `Created! Pass: ${TEMP_PASSWORD}`; msg.style.color = "var(--success)";    } catch (e) { msg.textContent = "Error: " + e.message; msg.style.color = "var(--danger)"; }}
-async function adminAdjust(){  const email = document.getElementById('admin_target_email').value;  const amount = Number(document.getElementById('admin_amount').value);  const type = document.getElementById('admin_type').value;  const msg = document.getElementById('admin_msg');    if (!email || isNaN(amount)) { msg.textContent = "Invalid fields."; return; }    try {    msg.textContent = "Processing...";     const users = await Backendless.Data.of('Users').find({ whereClause: `email='${email}'` });    if(!users.length) throw new Error("User not found.");    const user = users[0];    let newBal = (user.balance || 0) + (type==='credit' ? amount : -amount);    user.balance = newBal;    if (user.isBlocked) { user.isBlocked = false; user.transferFailures = 0; }    await Backendless.Data.of('Users').save(user);    await Backendless.Data.of('Transactions').save({ userEmail: email, type, amount, date: new Date(), note: 'Admin Adjust' });    msg.textContent = `New Balance: ${newBal.toFixed(2)} €`; msg.style.color = "var(--success)";  } catch(e) { msg.textContent = e.message; msg.style.color = "var(--danger)"; }}
-async function loadAllClients() {    const msgEl = document.getElementById('client_list_msg');    const tableEl = document.getElementById('client_table');    msgEl.textContent = "Loading...";    tableEl.innerHTML = ''; 
-    try {        const whereClause = `email != '${ADMIN_EMAIL}'`;        const queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause(whereClause).setPageSize(100).setSortBy(['created DESC']);         const clients = await Backendless.Data.of('Users').find(queryBuilder);                if (clients.length === 0) { msgEl.textContent = "No clients found."; return; }
+
+    try {
+        msg.textContent = "Creating...";
+        await Backendless.UserService.register(newUser);
+        msg.textContent = `Created! Pass: ${TEMP_PASSWORD}`; msg.style.color = "var(--success)";
+    } catch (e) { msg.textContent = "Error: " + e.message; msg.style.color = "var(--danger)"; }
+}
+
+async function adminAdjust(){
+  const email = document.getElementById('admin_target_email').value;
+  const amount = Number(document.getElementById('admin_amount').value);
+  const type = document.getElementById('admin_type').value;
+  const msg = document.getElementById('admin_msg');
+  
+  if (!email || isNaN(amount)) { msg.textContent = "Invalid fields."; return; }
+  
+  try {
+    msg.textContent = "Processing..."; 
+    const users = await Backendless.Data.of('Users').find({ whereClause: `email='${email}'` });
+    if(!users.length) throw new Error("User not found.");
+    const user = users[0];
+    let newBal = (user.balance || 0) + (type==='credit' ? amount : -amount);
+    user.balance = newBal;
+    if (user.isBlocked) { user.isBlocked = false; user.transferFailures = 0; }
+    await Backendless.Data.of('Users').save(user);
+    await Backendless.Data.of('Transactions').save({ userEmail: email, type, amount, date: new Date(), note: 'Admin Adjust' });
+    msg.textContent = `New Balance: ${newBal.toFixed(2)} €`; msg.style.color = "var(--success)";
+  } catch(e) { msg.textContent = e.message; msg.style.color = "var(--danger)"; }
+}
+
+async function loadAllClients() {
+    const msgEl = document.getElementById('client_list_msg');
+    const tableEl = document.getElementById('client_table');
+    msgEl.textContent = "Loading...";
+    tableEl.innerHTML = ''; 
+
+    try {
+        const whereClause = `email != '${ADMIN_EMAIL}'`;
+        const queryBuilder = Backendless.DataQueryBuilder.create().setWhereClause(whereClause).setPageSize(100).setSortBy(['created DESC']); 
+        const clients = await Backendless.Data.of('Users').find(queryBuilder);
+        
+        if (clients.length === 0) { msgEl.textContent = "No clients found."; return; }
+
         let html = `<thead><tr style="background:#f3f4f6; color:var(--text-main)"><th style="padding:10px;">Name</th><th style="padding:10px;">Email</th><th style="padding:10px; text-align:right;">Balance</th><th style="padding:10px; text-align:center;">Status</th></tr></thead><tbody>`;
-        clients.forEach(client => {            const balance = (client.balance || 0).toFixed(2) + ' €';            const balanceStyle = client.balance < 0 ? 'color:var(--danger); font-weight:bold' : 'font-weight:bold';            let statusText = client.isBlocked ? `BLOCKED` : `OK`;            let statusColor = client.isBlocked ? 'var(--danger)' : 'var(--success)';
-            html += `<tr style="border-bottom:1px solid #e5e7eb;">                        <td style="padding:10px; color:var(--text-main);">${client.name || 'N/A'}</td>                        <td style="padding:10px; font-family:monospace; color:var(--text-main);">${client.email}</td>                        <td style="padding:10px; text-align:right; ${balanceStyle}">${balance}</td>                        <td style="padding:10px; text-align:center; font-weight:600; color:${statusColor}">${statusText}</td>                    </tr>`;        });        html += `</tbody>`;        tableEl.innerHTML = html;        msgEl.textContent = `Loaded ${clients.length} clients.`; msgEl.style.color = "var(--success)"; 
-    } catch (e) { msgEl.textContent = "Error: " + e.message; msgEl.style.color = "var(--danger)"; }}
-async function exportCSV(){    try{        const list = await Backendless.Data.of('Transactions').find({pageSize:100});        const csv = "Date,Email,Type,Amount\n" + list.map(r=>`${new Date(r.date).toLocaleDateString()},${r.userEmail},${r.type},${r.amount}`).join("\n");        const blob = new Blob([csv], {type:'text/csv'});        const url = URL.createObjectURL(blob);        const a = document.createElement('a'); a.href=url; a.download='transactions.csv';        document.body.appendChild(a); a.click();    }catch(e){alert("Error exporting.");}}
-// InitialisationBackendless.UserService.getCurrentUser().then(u => { if(u) loadDashboard(); }).catch(()=>{});</script></body></html>
+
+        clients.forEach(client => {
+            const balance = (client.balance || 0).toFixed(2) + ' €';
+            const balanceStyle = client.balance < 0 ? 'color:var(--danger); font-weight:bold' : 'font-weight:bold';
+            let statusText = client.isBlocked ? `BLOCKED` : `OK`;
+            let statusColor = client.isBlocked ? 'var(--danger)' : 'var(--success)';
+
+            html += `<tr style="border-bottom:1px solid #e5e7eb;">
+                        <td style="padding:10px; color:var(--text-main);">${client.name || 'N/A'}</td>
+                        <td style="padding:10px; font-family:monospace; color:var(--text-main);">${client.email}</td>
+                        <td style="padding:10px; text-align:right; ${balanceStyle}">${balance}</td>
+                        <td style="padding:10px; text-align:center; font-weight:600; color:${statusColor}">${statusText}</td>
+                    </tr>`;
+        });
+        html += `</tbody>`;
+        tableEl.innerHTML = html;
+        msgEl.textContent = `Loaded ${clients.length} clients.`; msgEl.style.color = "var(--success)"; 
+
+    } catch (e) { msgEl.textContent = "Error: " + e.message; msgEl.style.color = "var(--danger)"; }
+}
+
+async function exportCSV(){
+    try{
+        const list = await Backendless.Data.of('Transactions').find({pageSize:100});
+        const csv = "Date,Email,Type,Amount\n" + list.map(r=>`${new Date(r.date).toLocaleDateString()},${r.userEmail},${r.type},${r.amount}`).join("\n");
+        const blob = new Blob([csv], {type:'text/csv'});
+        const url = URL.createObjectURL(blob);
+        const a = document.createElement('a'); a.href=url; a.download='transactions.csv';
+        document.body.appendChild(a); a.click();
+    }catch(e){alert("Error exporting.");}
+}
+
+// Initialisation
+Backendless.UserService.getCurrentUser().then(u => { if(u) loadDashboard(); }).catch(()=>{});
+</script>
+</body>
+</html>
